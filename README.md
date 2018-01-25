@@ -1,2 +1,2 @@
 # ProyectoMovilesEq6
-Proyecto de la materia de dispositivos móviles de la maestra Martha Sordia
+Proyecto del Equipo 6 para la materia de dispositivos móviles de la maestra Martha Sordia
