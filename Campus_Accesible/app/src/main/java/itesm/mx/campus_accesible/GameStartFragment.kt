@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import org.w3c.dom.Text
 
 
 /**
@@ -26,11 +28,24 @@ class GameStartFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
+    val PREFS_FILENAME = "itesm.mx.campus_accesible.prefs"
+    val HIGH_SCORE = "high_score"
+    var prefs: SharedPreferences? = null
+
+    var high_score: Int? = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             mParam1 = arguments!!.getString(ARG_PARAM1)
             mParam2 = arguments!!.getString(ARG_PARAM2)
+        }
+
+        prefs = this.activity?.getSharedPreferences(PREFS_FILENAME, 0)
+        if (prefs != null) {
+            high_score = prefs!!.getInt(HIGH_SCORE, 0)
+            var tvHighscore: TextView = view!!.findViewById<TextView>(R.id.tv_highscore)
+            tvHighscore.setText(high_score.toString())
         }
     }
 
