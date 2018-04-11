@@ -4,20 +4,21 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+
 @Entity
 public class Punto {
 
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     private int p_id;
 
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "x_coordinate")
-    private double x_coordinate;
+    @ColumnInfo(name = "longitude_coordinate")
+    private double longitude_coordinate;
 
-    @ColumnInfo(name = "y_coordinate")
-    private double y_coordinate;
+    @ColumnInfo(name = "latitude_coordinate")
+    private double latitude_coordinate;
 
     public int getP_id() {
         return p_id;
@@ -35,20 +36,24 @@ public class Punto {
         this.name = name;
     }
 
-    public double getX_coordinate() {
-        return x_coordinate;
+    public double getLatitude_coordinate() {
+        return latitude_coordinate;
     }
 
-    public void setX_coordinate(double x_coordinate) {
-        this.x_coordinate = x_coordinate;
+    public void setLatitude_coordinate(double latitude_coordinate) {
+        this.latitude_coordinate = latitude_coordinate;
     }
 
-    public double getY_coordinate() {
-        return y_coordinate;
+    public double getLongitude_coordinate() {
+        return longitude_coordinate;
     }
 
-    public void setY_coordinate(double y_coordinate) {
-        this.y_coordinate = y_coordinate;
+    public void setLongitude_coordinate(double longitude_coordinate) {
+        this.longitude_coordinate = longitude_coordinate;
     }
+
+
+
+
 
 }
