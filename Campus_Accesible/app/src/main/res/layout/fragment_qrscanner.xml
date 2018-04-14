@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="itesm.mx.campus_accesible.QRScannerFragment">
+    tools:context="itesm.mx.campus_accesible.QRScanner.QRScannerFragment">
 
     <TextView
         android:text="Hola te pico la cola"
