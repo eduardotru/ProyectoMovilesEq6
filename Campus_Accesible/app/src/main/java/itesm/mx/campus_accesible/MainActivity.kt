@@ -50,14 +50,18 @@ class MainActivity : AppCompatActivity(), QRScannerFragment.QRScannerDetectedLis
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             R.id.action_qr_scanner -> {
-                val qrfrag = QRScannerFragment.newInstance()
-                replaceFragment(qrfrag)
+                openQRScanner()
                 return true
             }
             else -> {
                 return super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    fun openQRScanner() {
+        val qrfrag = QRScannerFragment.newInstance()
+        replaceFragment(qrfrag)
     }
 
     override fun qrScannerDetected(content: String) {
