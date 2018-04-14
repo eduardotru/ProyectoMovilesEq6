@@ -20,7 +20,7 @@ import itesm.mx.campus_accesible.Mapa.AppDatabase;
 import itesm.mx.campus_accesible.Mapa.DatabaseInitializer;
 import itesm.mx.campus_accesible.Mapa.Punto;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -68,12 +68,23 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(point)
-                    .zoom(18).build();
+                    .zoom(17.5f).build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 
         }
-        mMap.setOnMarkerClickListener(this);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                LatLng position = marker.getPosition();
+                double longitude = position.longitude;
+                double latitude = position.latitude;
+
+                fetchDestination(longitude,latitude);
+                return false;
+            }
+        });
 
     }
 
@@ -90,20 +101,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        System.out.print("CLICKED!!!");
-        LatLng position = marker.getPosition();
-        double longitude = position.longitude;
-        double latitude = position.latitude;
 
-        //fetchDestination(longitude,latitude);
-        return false;
-    }
+
 
     private void fetchDestination(double longitude, double latitude){
         destinationPuntos = new ArrayList<>();
         List<Punto> puntos = mDb.puntoModel().getDestination(longitude,latitude);
+        System.out.println("SOS!!!"+puntos.size());
         for(Punto p : puntos){
             System.out.println(p.getName());
         }
