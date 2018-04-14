@@ -4,4 +4,5 @@
     <string name="title_mapa">Mapa</string>
     <string name="title_juego">Juego</string>
     <string name="title_activity_map">Map</string>
+    <string name="action_qr_scanner">QR Scanner</string>
 </resources>
