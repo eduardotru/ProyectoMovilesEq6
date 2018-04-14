@@ -3,4 +3,5 @@
     <string name="title_error">Reportar Error</string>
     <string name="title_mapa">Mapa</string>
     <string name="title_juego">Juego</string>
+    <string name="title_activity_map">Map</string>
 </resources>
