@@ -4,4 +4,7 @@
     <string name="title_mapa">Mapa</string>
     <string name="title_juego">Juego</string>
     <string name="title_activity_map">Map</string>
+    <string name="action_qr_scanner">QR Scanner</string>
+    <string name="camera_permission_failed">Se necesita el permiso de la camara para esta funcionalidad</string>
+    <string name="barcode_failed">El código QR no pudo ser interpretado</string>
 </resources>
