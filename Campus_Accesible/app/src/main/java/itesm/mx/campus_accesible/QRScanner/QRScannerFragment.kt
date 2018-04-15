@@ -1,16 +1,25 @@
 package itesm.mx.campus_accesible.QRScanner
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v4.content.ContextCompat
+import android.view.*
+import com.google.android.gms.vision.CameraSource
+import com.google.android.gms.vision.Detector
+import com.google.android.gms.vision.barcode.Barcode
+import com.google.android.gms.vision.barcode.BarcodeDetector
 import itesm.mx.campus_accesible.R
+import java.util.jar.Manifest
 
-class QRScannerFragment : Fragment() {
+class QRScannerFragment : Fragment(), SurfaceHolder.Callback {
 
-    private var mListener: QRScannerDetectedListener? = null
+    private var mListener: QRScannerListener? = null
+    private lateinit var cameraPreview: SurfaceView
+    private lateinit var cameraSource: CameraSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,15 +28,56 @@ class QRScannerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_qrscanner, container, false)
+        val view = inflater.inflate(R.layout.fragment_qrscanner, container, false)
+        cameraPreview = view.findViewById(R.id.surface_view)
+        createCameraSource()
+        return view
+    }
+
+    private fun createCameraSource() {
+        val barcodeDetector =  BarcodeDetector.Builder(context).setBarcodeFormats(Barcode.QR_CODE).build()
+        cameraSource = CameraSource.Builder(context, barcodeDetector)
+                .setAutoFocusEnabled(true)
+                .setRequestedPreviewSize(1600,1024)
+                .build()
+
+        cameraPreview.holder.addCallback(this)
+
+        barcodeDetector.setProcessor(object: Detector.Processor<Barcode> {
+            override fun release() {
+
+            }
+            override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
+                val barcodes = detections?.detectedItems
+                if (barcodes != null && barcodes.size() > 0) {
+                    mListener?.qrScannerDetected(barcodes[0])
+                }
+            }
+        })
+    }
+
+    override fun surfaceCreated(holder: SurfaceHolder?) {
+        if(ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            mListener?.requestCameraPermission()
+        } else {
+            cameraSource.start(cameraPreview.holder)
+        }
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
+        //do nothing
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder?) {
+        cameraSource.stop()
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is QRScannerDetectedListener) {
+        if (context is QRScannerListener) {
             mListener = context
         } else {
-            throw RuntimeException(context!!.toString() + " must implement QRScannerDetectedListener")
+            throw RuntimeException(context!!.toString() + " must implement QRScannerListener")
         }
     }
 
@@ -36,8 +86,9 @@ class QRScannerFragment : Fragment() {
         mListener = null
     }
 
-    interface QRScannerDetectedListener {
-        fun qrScannerDetected(content: String)
+    interface QRScannerListener {
+        fun qrScannerDetected(barcode: Barcode)
+        fun requestCameraPermission()
     }
 
     companion object {
