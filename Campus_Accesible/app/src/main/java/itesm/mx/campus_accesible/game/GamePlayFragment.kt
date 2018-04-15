@@ -1,26 +1,28 @@
-package itesm.mx.campus_accesible
+package itesm.mx.campus_accesible.game
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.GridView
 import android.widget.TextView
-import org.w3c.dom.Text
 
+import itesm.mx.campus_accesible.R
+import kotlinx.android.synthetic.main.fragment_game_play.*
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [GameStartFragment.OnFragmentInteractionListener] interface
+ * [GamePlayFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [GameStartFragment.newInstance] factory method to
+ * Use the [GamePlayFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GameStartFragment : Fragment() {
+class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -28,31 +30,30 @@ class GameStartFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    val PREFS_FILENAME = "itesm.mx.campus_accesible.prefs"
-    val HIGH_SCORE = "high_score"
-    var prefs: SharedPreferences? = null
-
-    var high_score: Int? = 0
+    private var firstCardText: String? = null
+    private var score = 0
+    private var solvedCards: ArrayList<String> = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            mParam1 = arguments!!.getString(ARG_PARAM1)
-            mParam2 = arguments!!.getString(ARG_PARAM2)
-        }
-
-        prefs = this.activity?.getSharedPreferences(PREFS_FILENAME, 0)
-        if (prefs != null) {
-            high_score = prefs!!.getInt(HIGH_SCORE, 0)
-            var tvHighscore: TextView = view!!.findViewById<TextView>(R.id.tv_highscore)
-            tvHighscore.setText(high_score.toString())
+            firstCardText = arguments!!.getString("firstCardText")
+            score = arguments!!.getInt("score")
+            solvedCards = arguments!!.getStringArrayList("solvedCards")
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game_start, container, false)
+        val viewCreated = inflater.inflate(R.layout.fragment_game_play, container, false)
+
+        val gridView = viewCreated.findViewById<GridView>(R.id.gridView)
+        gridView.adapter = CardAdapter(this.activity!!)
+
+        gridView.onItemClickListener = this
+
+        return viewCreated
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -102,16 +103,47 @@ class GameStartFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment GameStartFragment.
+         * @return A new instance of fragment GamePlayFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): GameStartFragment {
-            val fragment = GameStartFragment()
+        fun newInstance(param1: String, param2: String): GamePlayFragment {
+            val fragment = GamePlayFragment()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        val cardSelected = gridView.adapter.getItem(p2) as String
+        if (solvedCards.indexOf(cardSelected) == -1) {
+            if (firstCardText == null) {
+                firstCardText = cardSelected
+            } else {
+                if (cardSelected == firstCardText) {
+                    score++
+                    solvedCards.add(cardSelected)
+                    // Update the score text.
+                    view!!.findViewById<TextView>(R.id.tv_score)
+                } else {
+                    firstCardText = null
+                }
+            }
+        }
+
+        if (score == gridView.adapter.count) {
+            // The game is over.
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        // If the orientation changes.
+        outState.putString("firstCardText", firstCardText)
+        outState.putInt("score", score)
+        outState.putStringArrayList("solvedCards", solvedCards)
     }
 }// Required empty public constructor
