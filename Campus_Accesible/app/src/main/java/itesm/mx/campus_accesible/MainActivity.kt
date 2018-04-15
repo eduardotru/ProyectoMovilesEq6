@@ -1,25 +1,16 @@
 package itesm.mx.campus_accesible
 
-import android.content.Intent
-import android.content.pm.PackageManager
+
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import com.google.android.gms.vision.barcode.Barcode
-import itesm.mx.campus_accesible.QRScanner.QRScannerFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.jar.Manifest
-import android.net.Uri
-import android.support.design.widget.NavigationView
-import com.google.android.gms.maps.SupportMapFragment
 import itesm.mx.campus_accesible.Mapa.AppDatabase
 import itesm.mx.campus_accesible.Mapa.DatabaseInitializer
+import itesm.mx.campus_accesible.Mapa.MapFragment
 import itesm.mx.campus_accesible.Mapa.Punto
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
@@ -29,15 +20,15 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
 
     private var mDb: AppDatabase? = null
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_home -> {
-                startMapFragment()
+
                 return true
             }
             R.id.navigation_dashboard -> {
-                val intent = Intent(this, MapActivity::class.java);
-                startActivity(intent);
+
                 return true
             }
             R.id.navigation_notifications -> {
@@ -47,20 +38,11 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
         return false
     }
 
-    fun startMapFragment() {
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
-        mDb = AppDatabase.getInstance(applicationContext)
-        populateDB()
+    override fun onFragmentInteraction(arr: DoubleArray?) {
+        val longitude = arr!!.get(0)
+        val latitude = arr!!.get(1)
 
-        val puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
-        val mapFragment = MapFragment.newInstance(puntos);
-
-        mapFragment.getMapAsync(this)
-    }
-
-    override fun onFragmentInteraction(uri: Uri?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun replaceFragment(frag: Fragment) {
@@ -73,6 +55,13 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         setSupportActionBar(my_toolbar)
+        navigation.setOnNavigationItemSelectedListener(this)
+
+        mDb = AppDatabase.getInstance(applicationContext)
+        populateDB()
+        var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
+        val map_fragment = MapFragment.newInstance(puntos);
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, map_fragment).commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -123,17 +112,13 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
 
     companion object {
         val REQUEST_CAMERA = 1
-
     }
+
 
     private fun populateDB() {
         DatabaseInitializer.populate(mDb!!)
     }
 
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
 
     override fun fetchDestination(longitude: Double, latitude: Double): ArrayList<Punto> {
         return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
