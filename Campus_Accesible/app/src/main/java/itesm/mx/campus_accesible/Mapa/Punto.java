@@ -3,9 +3,11 @@ package itesm.mx.campus_accesible.Mapa;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 @Entity
-public class Punto {
+public class Punto implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int p_id;
@@ -51,4 +53,13 @@ public class Punto {
         this.longitude_coordinate = longitude_coordinate;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+    }
 }

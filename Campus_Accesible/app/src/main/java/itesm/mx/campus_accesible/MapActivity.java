@@ -101,9 +101,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     }
 
-
-
-
     private void fetchDestination(double longitude, double latitude){
         destinationPuntos = new ArrayList<>();
         List<Punto> puntos = mDb.puntoModel().getDestination(longitude,latitude);

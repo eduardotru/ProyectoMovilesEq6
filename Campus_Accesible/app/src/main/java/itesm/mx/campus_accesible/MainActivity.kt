@@ -15,24 +15,52 @@ import com.google.android.gms.vision.barcode.Barcode
 import itesm.mx.campus_accesible.QRScanner.QRScannerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.jar.Manifest
+import android.net.Uri
+import android.support.design.widget.NavigationView
+import com.google.android.gms.maps.SupportMapFragment
+import itesm.mx.campus_accesible.Mapa.AppDatabase
+import itesm.mx.campus_accesible.Mapa.DatabaseInitializer
+import itesm.mx.campus_accesible.Mapa.Punto
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
 
-class MainActivity : AppCompatActivity(), QRScannerFragment.QRScannerListener {
+class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener,
+        BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private var mDb: AppDatabase? = null
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_home -> {
-                return@OnNavigationItemSelectedListener true
+                startMapFragment()
+                return true
             }
             R.id.navigation_dashboard -> {
                 val intent = Intent(this, MapActivity::class.java);
                 startActivity(intent);
-                return@OnNavigationItemSelectedListener true
+                return true
             }
             R.id.navigation_notifications -> {
-                return@OnNavigationItemSelectedListener true
+                return true
             }
         }
-        false
+        return false
+    }
+
+    fun startMapFragment() {
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
+        mDb = AppDatabase.getInstance(applicationContext)
+        populateDB()
+
+        val puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
+        val mapFragment = MapFragment.newInstance(puntos);
+
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onFragmentInteraction(uri: Uri?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun replaceFragment(frag: Fragment) {
@@ -95,5 +123,19 @@ class MainActivity : AppCompatActivity(), QRScannerFragment.QRScannerListener {
 
     companion object {
         val REQUEST_CAMERA = 1
+
+    }
+
+    private fun populateDB() {
+        DatabaseInitializer.populate(mDb!!)
+    }
+
+    interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        fun onFragmentInteraction(uri: Uri)
+    }
+
+    override fun fetchDestination(longitude: Double, latitude: Double): ArrayList<Punto> {
+        return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
     }
 }
