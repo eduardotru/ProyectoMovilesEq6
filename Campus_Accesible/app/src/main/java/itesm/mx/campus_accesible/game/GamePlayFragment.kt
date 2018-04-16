@@ -61,6 +61,8 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
         val gridView = viewCreated.findViewById<GridView>(R.id.gridView)
         gridView.adapter = CardAdapter(this.activity!!)
 
+        val c = gridView.adapter.count
+
         gridView.onItemClickListener = this
 
         tvScore = viewCreated.findViewById<TextView>(R.id.tv_score)
