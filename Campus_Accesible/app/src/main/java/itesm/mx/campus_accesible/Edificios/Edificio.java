@@ -25,21 +25,30 @@ public class Edificio {
     @PrimaryKey(autoGenerate = true)
     private int e_id;
 
+    public Edificio (String nombre, boolean elevador, String bano, byte[] imagen){
+        this.nombre = nombre;
+        this.elevador = elevador;
+        this.bano = bano;
+        this.imagen = imagen;
+    }
+
+
+    public Edificio(){}
 
     //Setters y Getters
-    public void setNombre() { this.nombre = nombre; }
     public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public void setElevador() {this.elevador = elevador; }
     public boolean getElevador() {return elevador; }
+    public void setElevador(boolean elevador) {this.elevador = elevador; }
 
-    public void setBano() {this.bano = bano; }
+    public void setBano(String bano) {this.bano = bano; }
     public String getBano() { return bano; }
 
-    public void setImagen() {this.imagen = imagen; }
+    public void setImagen(byte[] bano) {this.imagen = imagen; }
     public byte[] getImagen() {return imagen; }
 
-    public void setE_id() {this.e_id = e_id; }
+    public void setE_id(int e_id) {this.e_id = e_id; }
     public int getE_id() {return e_id; }
 
 

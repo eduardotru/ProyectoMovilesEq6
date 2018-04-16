@@ -12,17 +12,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.vision.barcode.Barcode
-import itesm.mx.campus_accesible.Mapa.AppDatabase
-import itesm.mx.campus_accesible.Mapa.DatabaseInitializer
+import itesm.mx.campus_accesible.DB.DatabaseInitializer
 import itesm.mx.campus_accesible.Mapa.MapFragment
 import itesm.mx.campus_accesible.Mapa.Punto
 import itesm.mx.campus_accesible.QRScanner.QRScannerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
-import java.util.jar.Manifest
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.view.View
+import itesm.mx.campus_accesible.DB.AppDatabase
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener,
         BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
@@ -69,9 +68,7 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
 
-
         navigationView.setNavigationItemSelectedListener { menuItem ->
-
             menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
 
@@ -109,6 +106,13 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
 
         mDb = AppDatabase.getInstance(applicationContext)
         populateDB()
+
+        val menu = navigationView.menu
+        val listEdificios = mDb?.puntoModel()?.allEdificios
+        for (edificio in listEdificios!!) {
+            menu.add(edificio.nombre)
+        }
+
         navigation.selectedItemId = R.id.navigation_map
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

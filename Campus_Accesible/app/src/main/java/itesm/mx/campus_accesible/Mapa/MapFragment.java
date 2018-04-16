@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import itesm.mx.campus_accesible.DB.AppDatabase;
 import itesm.mx.campus_accesible.R;
 
 
