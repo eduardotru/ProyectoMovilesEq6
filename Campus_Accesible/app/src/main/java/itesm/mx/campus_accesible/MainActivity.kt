@@ -23,15 +23,17 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navigation_bug -> {
 
                 return true
             }
-            R.id.navigation_dashboard -> {
-
+            R.id.navigation_map -> {
+                var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
+                val map_fragment = MapFragment.newInstance(puntos)
+                replaceFragment(map_fragment)
                 return true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_game -> {
                 return true
             }
         }
@@ -59,9 +61,7 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
 
         mDb = AppDatabase.getInstance(applicationContext)
         populateDB()
-        var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
-        val map_fragment = MapFragment.newInstance(puntos);
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, map_fragment).commit()
+        navigation.selectedItemId = R.id.navigation_map
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
