@@ -7,5 +7,9 @@
     <string name="action_qr_scanner">QR Scanner</string>
     <string name="camera_permission_failed">Se necesita el permiso de la camara para esta funcionalidad</string>
     <string name="barcode_failed">El código QR no pudo ser interpretado</string>
+    <string name="imp">Lo que quieras</string>
+    <string name="title_elevador">Elevador: </string>
+    <string name="title_banos">Baños Accesibles: </string>
+
 
 </resources>
