@@ -1,17 +1,21 @@
 package itesm.mx.campus_accesible
 
 
+import android.content.pm.PackageManager
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import com.google.android.gms.vision.barcode.Barcode
 import itesm.mx.campus_accesible.Mapa.AppDatabase
 import itesm.mx.campus_accesible.Mapa.DatabaseInitializer
 import itesm.mx.campus_accesible.Mapa.MapFragment
 import itesm.mx.campus_accesible.Mapa.Punto
+import itesm.mx.campus_accesible.QRScanner.QRScannerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
@@ -19,7 +23,6 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
         BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
 
     private var mDb: AppDatabase? = null
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -54,7 +57,6 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         setSupportActionBar(my_toolbar)
         navigation.setOnNavigationItemSelectedListener(this)
