@@ -5,6 +5,8 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import java.util.ArrayList;
+
 @Database(entities = {Punto.class}, version = 1, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
@@ -24,7 +26,8 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-
-
+    public interface DatabaseDelegate {
+        ArrayList<Punto> fetchDestination(double longitude, double lattitude);
+    }
 
 }

@@ -1,38 +1,53 @@
 package itesm.mx.campus_accesible
 
-import android.content.Intent
+
 import android.content.pm.PackageManager
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.vision.barcode.Barcode
+import itesm.mx.campus_accesible.Mapa.AppDatabase
+import itesm.mx.campus_accesible.Mapa.DatabaseInitializer
+import itesm.mx.campus_accesible.Mapa.MapFragment
+import itesm.mx.campus_accesible.Mapa.Punto
 import itesm.mx.campus_accesible.QRScanner.QRScannerFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.jar.Manifest
+import java.util.ArrayList
 
-class MainActivity : AppCompatActivity(), QRScannerFragment.QRScannerListener {
+class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener,
+        BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private var mDb: AppDatabase? = null
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.navigation_home -> {
-                return@OnNavigationItemSelectedListener true
+            R.id.navigation_bug -> {
+
+                return true
             }
-            R.id.navigation_dashboard -> {
-                val intent = Intent(this, MapActivity::class.java);
-                startActivity(intent);
-                return@OnNavigationItemSelectedListener true
+            R.id.navigation_map -> {
+                var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
+                val map_fragment = MapFragment.newInstance(puntos)
+                replaceFragment(map_fragment)
+                return true
             }
-            R.id.navigation_notifications -> {
-                return@OnNavigationItemSelectedListener true
+            R.id.navigation_game -> {
+                return true
             }
         }
-        false
+        return false
+    }
+
+
+    override fun onFragmentInteraction(arr: DoubleArray?) {
+        val longitude = arr!!.get(0)
+        val latitude = arr!!.get(1)
+
     }
 
     fun replaceFragment(frag: Fragment) {
@@ -42,9 +57,13 @@ class MainActivity : AppCompatActivity(), QRScannerFragment.QRScannerListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         setSupportActionBar(my_toolbar)
+        navigation.setOnNavigationItemSelectedListener(this)
+
+        mDb = AppDatabase.getInstance(applicationContext)
+        populateDB()
+        navigation.selectedItemId = R.id.navigation_map
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -95,5 +114,15 @@ class MainActivity : AppCompatActivity(), QRScannerFragment.QRScannerListener {
 
     companion object {
         val REQUEST_CAMERA = 1
+    }
+
+
+    private fun populateDB() {
+        DatabaseInitializer.populate(mDb!!)
+    }
+
+
+    override fun fetchDestination(longitude: Double, latitude: Double): ArrayList<Punto> {
+        return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
     }
 }
