@@ -4,9 +4,26 @@ import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import itesm.mx.campus_accesible.game.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GameFragmentListener {
+
+    override fun goToMainMenu() {
+        replaceFragment(GameStartFragment.newInstance())
+    }
+
+    override fun restartGame() {
+        replaceFragment(GamePlayFragment.newInstance())
+    }
+
+    override fun gameOver(score: Int) {
+        replaceFragment(GameOverFragment.newInstance(score))
+    }
+
+    override fun startGame() {
+        replaceFragment(GamePlayFragment.newInstance())
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -17,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
+                replaceFragment(GameStartFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
         }

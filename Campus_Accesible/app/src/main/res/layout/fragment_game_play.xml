@@ -24,8 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/gridView"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
+        android:numColumns="@integer/numColumns_game"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
         ></GridView>

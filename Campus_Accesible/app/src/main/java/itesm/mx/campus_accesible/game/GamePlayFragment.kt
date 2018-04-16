@@ -6,13 +6,18 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.ImageView
 import android.widget.TextView
 
 import itesm.mx.campus_accesible.R
 import kotlinx.android.synthetic.main.fragment_game_play.*
+import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.timer
 
 /**
  * A simple [Fragment] subclass.
@@ -28,8 +33,9 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
     private var mParam1: String? = null
     private var mParam2: String? = null
 
-    private var mListener: OnFragmentInteractionListener? = null
+    private var mListener: GameFragmentListener? = null
 
+    private var firstCardView: View? = null
     private var firstCardText: String? = null
     private var score = 0
     private var solvedCards: ArrayList<String> = ArrayList<String>()
@@ -37,9 +43,11 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            firstCardText = arguments!!.getString("firstCardText")
-            score = arguments!!.getInt("score")
-            solvedCards = arguments!!.getStringArrayList("solvedCards")
+            firstCardText = arguments!!.getString("firstCardText", null)
+            score = arguments!!.getInt("score", 0)
+            if (arguments!!.getStringArrayList("solvedCards") != null) {
+                solvedCards = arguments!!.getStringArrayList("solvedCards")
+            }
         }
     }
 
@@ -51,21 +59,16 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
         val gridView = viewCreated.findViewById<GridView>(R.id.gridView)
         gridView.adapter = CardAdapter(this.activity!!)
 
+        val c = gridView.adapter.count
+
         gridView.onItemClickListener = this
 
         return viewCreated
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
-        }
-    }
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is GameFragmentListener) {
             mListener = context
         } else {
             throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
@@ -92,25 +95,9 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GamePlayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): GamePlayFragment {
+        fun newInstance(): GamePlayFragment {
             val fragment = GamePlayFragment()
             val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
             fragment.arguments = args
             return fragment
         }
@@ -119,8 +106,13 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
     override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         val cardSelected = gridView.adapter.getItem(p2) as String
         if (solvedCards.indexOf(cardSelected) == -1) {
+            val imageView = p1!!.findViewById<ImageView>(R.id.ivCard)
+            imageView.setImageResource(R.drawable.card)
+            val textContent = p1!!.findViewById<TextView>(R.id.desc)
+            textContent.visibility = VISIBLE
             if (firstCardText == null) {
                 firstCardText = cardSelected
+                firstCardView = p1!!
             } else {
                 if (cardSelected == firstCardText) {
                     score++
@@ -128,13 +120,22 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
                     // Update the score text.
                     view!!.findViewById<TextView>(R.id.tv_score)
                 } else {
-                    firstCardText = null
+                    val firstImageView = firstCardView!!.findViewById<ImageView>(R.id.ivCard)
+                    val firstTextContent = firstCardView!!.findViewById<TextView>(R.id.desc)
+                    firstImageView.setImageResource(R.drawable.card_hidden)
+                    firstTextContent.visibility = INVISIBLE
+
+                    imageView.setImageResource(R.drawable.card_hidden)
+                    textContent.visibility = INVISIBLE
                 }
+                firstCardText = null
+                firstCardView = null
             }
         }
 
-        if (score == gridView.adapter.count) {
+        if (score == gridView.adapter.count / 2) {
             // The game is over.
+            mListener!!.gameOver(score);
         }
     }
 
