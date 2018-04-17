@@ -35,10 +35,12 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
 
     private var mListener: GameFragmentListener? = null
 
+    private var firstCardIndex: Int? = null
     private var firstCardView: View? = null
     private var firstCardText: String? = null
     private var score = 0
     private var solvedCards: ArrayList<String> = ArrayList<String>()
+    private var tvScore: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +61,10 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
         val gridView = viewCreated.findViewById<GridView>(R.id.gridView)
         gridView.adapter = CardAdapter(this.activity!!)
 
-        val c = gridView.adapter.count
-
         gridView.onItemClickListener = this
+
+        tvScore = viewCreated.findViewById<TextView>(R.id.tv_score)
+        tvScore!!.text = score.toString()
 
         return viewCreated
     }
@@ -108,18 +111,24 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
         if (solvedCards.indexOf(cardSelected) == -1) {
             val imageView = p1!!.findViewById<ImageView>(R.id.ivCard)
             imageView.setImageResource(R.drawable.card)
-            val textContent = p1!!.findViewById<TextView>(R.id.desc)
+            val textContent = p1.findViewById<TextView>(R.id.desc)
             textContent.visibility = VISIBLE
             if (firstCardText == null) {
+                firstCardIndex = p2
+                (gridView.adapter as CardAdapter).taken[p2] = true
                 firstCardText = cardSelected
-                firstCardView = p1!!
+                firstCardView = p1
             } else {
                 if (cardSelected == firstCardText) {
+                    (gridView.adapter as CardAdapter).taken[p2] = true
                     score++
+                    tvScore!!.text = score.toString()
                     solvedCards.add(cardSelected)
                     // Update the score text.
                     view!!.findViewById<TextView>(R.id.tv_score)
                 } else {
+                    (gridView.adapter as CardAdapter).taken[firstCardIndex!!] = false
+                    (gridView.adapter as CardAdapter).taken[p2] = false
                     val firstImageView = firstCardView!!.findViewById<ImageView>(R.id.ivCard)
                     val firstTextContent = firstCardView!!.findViewById<TextView>(R.id.desc)
                     firstImageView.setImageResource(R.drawable.card_hidden)

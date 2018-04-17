@@ -52,7 +52,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
             if (score > high_score!!) {
                 resultsText = resultsText + "Congratulations! You have a new high score!\n"
                 high_score = score
-                prefs!!.edit().putInt(HIGH_SCORE, high_score!!)
+                prefs!!.edit().putInt(HIGH_SCORE, high_score!!).commit()
             }
         }
 

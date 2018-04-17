@@ -3,8 +3,10 @@ package itesm.mx.campus_accesible.game
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import itesm.mx.campus_accesible.R
 import java.util.*
@@ -19,6 +21,8 @@ class CardAdapter(context: Context) : BaseAdapter() {
 
     val textContents: ArrayList<String> = arrayListOf("abc", "def", "ghi", "jkl", "mno",
                                                       "abc", "def", "ghi", "jkl", "mno")
+    val taken: ArrayList<Boolean> = arrayListOf(false, false, false, false, false,
+                                                false, false, false, false, false)
 
     init {
         Collections.shuffle(textContents)
@@ -26,8 +30,14 @@ class CardAdapter(context: Context) : BaseAdapter() {
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         val cardView = LayoutInflater.from(context).inflate(R.layout.card, p2, false)
+        val imageView = cardView.findViewById<ImageView>(R.id.ivCard)
         val cardDescription = cardView.findViewById<TextView>(R.id.desc)
         cardDescription.text = getItem(p0).toString()
+
+        if (taken[p0]) {
+            imageView.setImageResource(R.drawable.card)
+            cardDescription.visibility = VISIBLE
+        }
 
         return cardView
     }
