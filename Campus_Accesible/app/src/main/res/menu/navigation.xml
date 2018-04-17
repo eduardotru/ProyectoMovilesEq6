@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_bug"
         android:icon="@drawable/ic_bug_report_black_24dp"
         android:title="@string/title_error" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_map"
         android:icon="@drawable/ic_map_black_24dp"
         android:title="@string/title_mapa" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_game"
         android:icon="@drawable/ic_videogame_asset_black_24dp"
         android:title="@string/title_juego" />
 
