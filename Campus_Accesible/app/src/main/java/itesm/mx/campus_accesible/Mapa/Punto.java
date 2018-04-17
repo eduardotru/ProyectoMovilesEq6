@@ -9,6 +9,10 @@ import android.os.Parcelable;
 @Entity
 public class Punto implements Parcelable {
 
+    public Punto() {
+
+    }
+
     @PrimaryKey(autoGenerate = true)
     private int p_id;
 
@@ -60,6 +64,25 @@ public class Punto implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(p_id);
+        parcel.writeString(name);
+        parcel.writeDouble(latitude_coordinate);
+        parcel.writeDouble(longitude_coordinate);
+    }
 
+    public static final Parcelable.Creator<Punto> CREATOR = new Parcelable.Creator<Punto>() {
+        public Punto createFromParcel(Parcel in) {
+            return new Punto(in);
+        }
+        public Punto[] newArray(int size) {
+            return new Punto[size];
+        }
+    };
+
+    private Punto(Parcel in) {
+        p_id = in.readInt();
+        name = in.readString();
+        latitude_coordinate = in.readDouble();
+        longitude_coordinate = in.readDouble();
     }
 }
