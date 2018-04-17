@@ -24,8 +24,8 @@ import android.support.v4.view.GravityCompat
 import android.view.View
 import itesm.mx.campus_accesible.DB.AppDatabase
 
-class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener,
-        BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
+class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
+BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
@@ -46,11 +46,9 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
         replaceFragment(GamePlayFragment.newInstance())
     }
 
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_bug -> {
-
                 return true
             }
             R.id.navigation_map -> {
@@ -59,9 +57,9 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
                 replaceFragment(map_fragment)
                 return true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_game -> {
                 replaceFragment(GameStartFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
+                return true
             }
         }
         return false
