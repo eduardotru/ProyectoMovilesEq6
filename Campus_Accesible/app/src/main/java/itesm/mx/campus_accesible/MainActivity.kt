@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import itesm.mx.campus_accesible.game.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -23,17 +24,31 @@ import android.support.v4.view.GravityCompat
 import android.view.View
 import itesm.mx.campus_accesible.DB.AppDatabase
 
-class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener,
-        BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
+class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
+BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
 
+    override fun goToMainMenu() {
+        replaceFragment(GameStartFragment.newInstance())
+    }
+
+    override fun restartGame() {
+        replaceFragment(GamePlayFragment.newInstance())
+    }
+
+    override fun gameOver(score: Int) {
+        replaceFragment(GameOverFragment.newInstance(score))
+    }
+
+    override fun startGame() {
+        replaceFragment(GamePlayFragment.newInstance())
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_bug -> {
-
                 return true
             }
             R.id.navigation_map -> {
@@ -43,6 +58,7 @@ class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListe
                 return true
             }
             R.id.navigation_game -> {
+                replaceFragment(GameStartFragment.newInstance())
                 return true
             }
         }
