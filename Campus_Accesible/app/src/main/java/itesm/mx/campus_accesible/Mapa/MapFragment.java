@@ -2,6 +2,8 @@ package itesm.mx.campus_accesible.Mapa;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -162,12 +165,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             dest = position;
             hasPickedTwo = true;
         }
-        if(hasPickedOne && hasPickedTwo){
-            mMap.clear();
-            addOriginDestMarker(origin);
-            addOriginDestMarker(dest);
-            drawPath();
+
+        if(hasNetworkConnection()){
+            if(hasPickedOne && hasPickedTwo){
+                mMap.clear();
+                addOriginDestMarker(origin);
+                addOriginDestMarker(dest);
+                drawPath();
+            }
+        }else{
+            Toast.makeText(getActivity(), "Requiere conexión a Internet",
+                    Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    private boolean hasNetworkConnection() {
+        boolean hasWifi = false;
+        boolean hasMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : networkInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    hasWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    hasMobile = true;
+        }
+        return hasWifi || hasMobile;
     }
 
     private void addOriginDestMarker(LatLng position){
