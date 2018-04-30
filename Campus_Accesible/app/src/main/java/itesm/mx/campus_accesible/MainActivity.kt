@@ -192,7 +192,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
 
     private fun populateDB() {
-        DatabaseInitializer.populate(mDb!!)
+        DatabaseInitializer.populate(mDb!!, this);
     }
 
 
