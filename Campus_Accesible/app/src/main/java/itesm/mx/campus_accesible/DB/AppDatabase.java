@@ -6,11 +6,12 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import itesm.mx.campus_accesible.Edificios.Edificio;
+import itesm.mx.campus_accesible.Mapa.Edge;
 import itesm.mx.campus_accesible.Mapa.Punto;
 
 import java.util.ArrayList;
 
-@Database(entities = {Punto.class, Edificio.class}, version = 2, exportSchema = false)
+@Database(entities = {Punto.class, Edificio.class, Edge.class}, version = 3, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import itesm.mx.campus_accesible.Edificios.Edificio;
+import itesm.mx.campus_accesible.Mapa.Edge;
 import itesm.mx.campus_accesible.Mapa.Punto;
 
 @Dao
@@ -22,6 +23,9 @@ public interface CampusAccesibleDao {
 
     @Query("SELECT * FROM edificio Order by nombre")
     List<Edificio> getAllEdificios();
+
+    @Query("SELECT * FROM edge")
+    List<Edge> getAllEdges();
 
     @Insert
     void insertAllPuntos(ArrayList<Punto> puntos);
