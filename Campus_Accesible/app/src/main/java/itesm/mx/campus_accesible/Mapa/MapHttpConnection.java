@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MapHttpConnection {
+
     public String readUr(String mapsApiDirectionsUrl) throws IOException {
         String data = "";
         InputStream istream = null;
@@ -36,7 +37,9 @@ public class MapHttpConnection {
             istream.close();
             urlConnection.disconnect();
         }
+        System.out.println(data+"!!!!!!!");
         return data;
 
     }
+
 }

@@ -62,6 +62,7 @@ public class PathJSONParser {
 
     private List<LatLng> decodePoly(String encoded) {
         List<LatLng> poly = new ArrayList<LatLng>();
+
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
 
@@ -78,6 +79,7 @@ public class PathJSONParser {
             shift = 0;
             result = 0;
             do {
+
                 b = encoded.charAt(index++) - 63;
                 result |= (b & 0x1f) << shift;
                 shift += 5;
@@ -89,6 +91,10 @@ public class PathJSONParser {
                     (((double) lng / 1E5)));
             poly.add(p);
         }
+        for(LatLng n : poly){
+            System.out.println("Lat: "+n.latitude+" Lon: "+n.longitude+" ");
+        }
         return poly;
+
     }
 }
