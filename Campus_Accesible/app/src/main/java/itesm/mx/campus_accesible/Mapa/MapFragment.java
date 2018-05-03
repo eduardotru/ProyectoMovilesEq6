@@ -48,6 +48,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView mMapView;
     private GoogleMap mMap;
     private ArrayList<Punto> allPuntos;
+    private ArrayList<Edge> edges;
     private OnFragmentInteractionListener mListener;
     private AppDatabase.DatabaseDelegate databaseDelegate;
     private LatLng origin;
@@ -60,10 +61,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Required empty public constructor
     }
 
-    public static MapFragment newInstance(ArrayList<Punto> puntos) {
+    public static MapFragment newInstance(ArrayList<Punto> puntos, ArrayList<Edge> edges) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList("puntos", puntos);
+        args.putParcelableArrayList("edges",edges);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,6 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (getArguments() != null) {
             Bundle bundle = getArguments();
             allPuntos = bundle.getParcelableArrayList("puntos");
+            edges = bundle.getParcelableArrayList("edges");
 
         }
     }
@@ -133,7 +136,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             double longitude = p.getLongitude_coordinate();
             double latitude = p.getLatitude_coordinate();
 
-            LatLng point = new LatLng(longitude, latitude);
+            LatLng point = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(point).title("Marker in "+p.getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
             CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -149,53 +152,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker marker) {
                 marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                 LatLng position = marker.getPosition();
+                System.out.println(marker.getTitle());
                 setPickedElements(position);
                 return false;
             }
         });
     }
 
+    //&& (longitude!= origin.longitude && latitude!=origin.latitude)
     private void setPickedElements(LatLng position){
         double longitude = position.longitude;
         double latitude = position.latitude;
         if(!hasPickedOne){
             origin = position;
             hasPickedOne = true;
-        }else if(!hasPickedTwo && (longitude!= origin.longitude && latitude!=origin.latitude)){
+        }else if(!hasPickedTwo && (longitude!= origin.longitude || latitude!=origin.latitude)){
             dest = position;
             hasPickedTwo = true;
         }
 
-        if(hasNetworkConnection()){
-            if(hasPickedOne && hasPickedTwo){
-                mMap.clear();
-                addOriginDestMarker(origin);
-                addOriginDestMarker(dest);
-                drawPath();
-            }
-        }else{
-            Toast.makeText(getActivity(), "Requiere conexión a Internet",
-                    Toast.LENGTH_LONG).show();
+        if(hasPickedOne && hasPickedTwo){
+            mMap.clear();
+            addOriginDestMarker(origin);
+            addOriginDestMarker(dest);
+            drawPath();
         }
+
     }
 
 
-    private boolean hasNetworkConnection() {
-        boolean hasWifi = false;
-        boolean hasMobile = false;
 
-        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] networkInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : networkInfo) {
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    hasWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    hasMobile = true;
-        }
-        return hasWifi || hasMobile;
-    }
 
     private void addOriginDestMarker(LatLng position){
         mMap.addMarker(new MarkerOptions().position(position).title("Origen")
@@ -246,9 +232,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         @Override
         protected ArrayList<LatLng> doInBackground(LatLng... params) {
             /*
-            * Agregar la lista de edges
-            * */
-            return ShortestPath.INSTANCE.shortestPath(new ArrayList<Edge>(), allPuntos, params[0], params[1]);
+             * Agregar la lista de edges
+             * */
+            ShortestPath sp = new ShortestPath(edges, allPuntos);
+            return sp.shortestPath(params[0], params[1]);
         }
 
         @Override

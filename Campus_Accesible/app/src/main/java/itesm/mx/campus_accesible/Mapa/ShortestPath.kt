@@ -15,21 +15,21 @@ import kotlin.math.pow
 // Fecha de última modificación: dd/mm/aaaa
 //////////////////////////////////////////////////////////
 
-object ShortestPath {
-    fun shortestPath(edgeList: ArrayList<Edge>, nodes: ArrayList<Punto>, from: LatLng, to: LatLng): ArrayList<LatLng> {
-        val adjList = ArrayList<ArrayList<EdgeUtil>>(nodes.size)
+class ShortestPath(var edgeList: ArrayList<Edge>, var nodes: ArrayList<Punto>) {
+    fun shortestPath(from: LatLng, to: LatLng): ArrayList<LatLng> {
+        val adjList = Array<ArrayList<EdgeUtil>>(nodes.size, { ArrayList() })
         for(edge in edgeList) {
             if(edge.accessible) {
-                val dist = getDistance(nodes[edge.from], nodes[edge.to])
-                adjList[edge.from].add(EdgeUtil(edge.from, edge.to, dist))
-                adjList[edge.to].add(EdgeUtil(edge.to, edge.from, dist))
+                val dist = getDistance(nodes[edge.from-1], nodes[edge.to-1])
+                adjList[edge.from-1].add(EdgeUtil(edge.from-1, edge.to-1, dist))
+                adjList[edge.to-1].add(EdgeUtil(edge.to-1, edge.from-1, dist))
             }
         }
         val visited = BooleanArray(nodes.size, {false})
         val path = IntArray(nodes.size)
         val comp = EdgeUtilComparator()
         val pq = PriorityQueue<EdgeUtil>(100, comp)
-        val fromIndex = findIndex(from, nodes)
+        val fromIndex = findIndex(from)
 
         // Dijsktra Algorithm
         pq.add(EdgeUtil(-1, fromIndex, 0.0))
@@ -46,7 +46,7 @@ object ShortestPath {
         }
 
         val ret = ArrayList<LatLng>()
-        var toIndex = findIndex(to, nodes)
+        var toIndex = findIndex(to)
         while(toIndex != -1) {
             val point = LatLng(nodes[toIndex].latitude_coordinate, nodes[toIndex].longitude_coordinate)
             ret.add(point)
@@ -55,7 +55,7 @@ object ShortestPath {
         return ret
     }
 
-    fun findIndex(coord: LatLng, nodes: ArrayList<Punto>): Int {
+    fun findIndex(coord: LatLng): Int {
         var minDist = Double.MAX_VALUE
         var index = 0
         for(i in nodes.indices) {
@@ -76,7 +76,7 @@ object ShortestPath {
     }
 }
 
-class EdgeUtil(var from: Int, var to: Int, var dist: Double) {
+class EdgeUtil(var from: Int = 0, var to: Int = 0, var dist: Double = 0.0) {
 }
 
 class EdgeUtilComparator(): Comparator<EdgeUtil> {

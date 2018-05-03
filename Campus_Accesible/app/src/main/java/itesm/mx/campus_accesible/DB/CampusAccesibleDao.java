@@ -31,6 +31,9 @@ public interface CampusAccesibleDao {
     void insertAllPuntos(ArrayList<Punto> puntos);
 
     @Insert
+    void insertEdge(Edge edge);
+
+    @Insert
     void insertPunto(Punto punto);
 
     @Insert
