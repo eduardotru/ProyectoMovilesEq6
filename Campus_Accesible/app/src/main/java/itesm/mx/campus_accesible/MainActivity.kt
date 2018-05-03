@@ -26,6 +26,7 @@ import itesm.mx.campus_accesible.Creditos.CreditsFragment
 import itesm.mx.campus_accesible.DB.AppDatabase
 import itesm.mx.campus_accesible.Mapa.Edge
 import itesm.mx.campus_accesible.QRScanner.QRScannerListener
+import itesm.mx.campus_accesible.Edificios.Edificio
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
 BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener,
@@ -33,6 +34,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
+    private var hashmapEdificios = HashMap <String, Edificio>()
 
     override fun goToMainMenu() {
         replaceFragment(GameStartFragment.newInstance())
@@ -93,8 +95,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
 
-
-            //Agregar codigo del detalle aqui
+            val edificio = hashmapEdificios[menuItem.title]
 
             if(menuItem.title == "Créditos") {
                 replaceFragment(CreditsFragment.newInstance())
@@ -134,6 +135,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         val listEdificios = mDb?.puntoModel()?.allEdificios
         for (edificio in listEdificios!!) {
             menu.add(edificio.nombre)
+            hashmapEdificios[edificio.nombre] = edificio
         }
         menu.add("Créditos")
         navigation.selectedItemId = R.id.navigation_map
