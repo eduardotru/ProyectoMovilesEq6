@@ -48,6 +48,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView mMapView;
     private GoogleMap mMap;
     private ArrayList<Punto> allPuntos;
+    private ArrayList<Edge> edges;
     private OnFragmentInteractionListener mListener;
     private AppDatabase.DatabaseDelegate databaseDelegate;
     private LatLng origin;
@@ -60,10 +61,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Required empty public constructor
     }
 
-    public static MapFragment newInstance(ArrayList<Punto> puntos) {
+    public static MapFragment newInstance(ArrayList<Punto> puntos, ArrayList<Edge> edges) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList("puntos", puntos);
+        args.putParcelableArrayList("edges",edges);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,6 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (getArguments() != null) {
             Bundle bundle = getArguments();
             allPuntos = bundle.getParcelableArrayList("puntos");
+            edges = bundle.getParcelableArrayList("edges");
 
         }
     }
@@ -133,7 +136,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             double longitude = p.getLongitude_coordinate();
             double latitude = p.getLatitude_coordinate();
 
-            LatLng point = new LatLng(longitude, latitude);
+            LatLng point = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(point).title("Marker in "+p.getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
             CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -149,53 +152,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker marker) {
                 marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                 LatLng position = marker.getPosition();
+                System.out.println(marker.getTitle());
                 setPickedElements(position);
                 return false;
             }
         });
     }
 
+    //&& (longitude!= origin.longitude && latitude!=origin.latitude)
     private void setPickedElements(LatLng position){
         double longitude = position.longitude;
         double latitude = position.latitude;
         if(!hasPickedOne){
             origin = position;
             hasPickedOne = true;
-        }else if(!hasPickedTwo && (longitude!= origin.longitude && latitude!=origin.latitude)){
+        }else if(!hasPickedTwo && (longitude!= origin.longitude || latitude!=origin.latitude)){
             dest = position;
             hasPickedTwo = true;
         }
 
-        if(hasNetworkConnection()){
-            if(hasPickedOne && hasPickedTwo){
-                mMap.clear();
-                addOriginDestMarker(origin);
-                addOriginDestMarker(dest);
-                drawPath();
-            }
-        }else{
-            Toast.makeText(getActivity(), "Requiere conexión a Internet",
-                    Toast.LENGTH_LONG).show();
+        if(hasPickedOne && hasPickedTwo){
+            mMap.clear();
+            addOriginDestMarker(origin);
+            addOriginDestMarker(dest);
+            drawPath();
         }
+
     }
 
 
-    private boolean hasNetworkConnection() {
-        boolean hasWifi = false;
-        boolean hasMobile = false;
 
-        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] networkInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : networkInfo) {
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    hasWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    hasMobile = true;
-        }
-        return hasWifi || hasMobile;
-    }
 
     private void addOriginDestMarker(LatLng position){
         mMap.addMarker(new MarkerOptions().position(position).title("Origen")
@@ -236,115 +222,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      */
 
     private void drawPath(){
-        String url = getMapsDirectionsUrl(origin, dest);
         ReadTask downloadTask = new ReadTask();
         // Start downloading json data from Google Directions API
-        downloadTask.execute(url);
+        downloadTask.execute(origin, dest);
     }
 
-    //      Get direction URL required to use Google Maps API
-    private String  getMapsDirectionsUrl(LatLng origin,LatLng dest) {
-        // Origin of route
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
-
-        // Destination of route
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
-
-        // Sensor enabled
-        String sensor = "sensor=false";
-
-        // Walking option
-        String mode = "mode=walking";
-
-        // Building the parameters to the web service
-        String parameters = str_origin+"&"+str_dest+"&"+sensor+"&"+mode;
-
-        // Output format
-        String output = "json";
-
-
-
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
-
-        return url;
-    }
-
-    // URL class, it performas a URL call in the background
-
-    private class ReadTask extends AsyncTask<String, Void , String> {
+    private class ReadTask extends AsyncTask<LatLng, Void , ArrayList<LatLng>> {
 
         @Override
-        protected String doInBackground(String... url) {
-            // TODO Auto-generated method stub
-            String data = "";
-            try {
-                MapHttpConnection http = new MapHttpConnection();
-                data = http.readUr(url[0]);
-            } catch (Exception e) {
-                // TODO: handle exception
-                Log.d("Background Task", e.toString());
-            }
-            return data;
+        protected ArrayList<LatLng> doInBackground(LatLng... params) {
+            /*
+             * Agregar la lista de edges
+             * */
+            ShortestPath sp = new ShortestPath(edges, allPuntos);
+            return sp.shortestPath(params[0], params[1]);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            new ParserTask().execute(result);
-        }
+        protected void onPostExecute(ArrayList<LatLng> result) {
+            PolylineOptions polyLineOptions = new PolylineOptions();
 
-    }
-
-    private class ParserTask extends AsyncTask<String,Integer, List<List<HashMap<String , String >>>> {
-        @Override
-        protected List<List<HashMap<String, String>>> doInBackground(
-                String... jsonData) {
-            // TODO Auto-generated method stub
-            JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
-            try {
-                jObject = new JSONObject(jsonData[0]);
-                PathJSONParser parser = new PathJSONParser();
-                routes = parser.parse(jObject);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return routes;
-        }
-
-        @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> routes) {
-            ArrayList<LatLng> points = null;
-            PolylineOptions polyLineOptions = null;
-
-            // traversing through routes
-            for (int i = 0; i < routes.size(); i++) {
-                points = new ArrayList<LatLng>();
-                polyLineOptions = new PolylineOptions();
-                List<HashMap<String, String>> path = routes.get(i);
-
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
-                }
-
-                polyLineOptions.addAll(points);
-                polyLineOptions.width(15);
-                polyLineOptions.color(Color.BLUE);
-            }
+            polyLineOptions.addAll(result);
+            polyLineOptions.width(15);
+            polyLineOptions.color(Color.BLUE);
 
             mMap.addPolyline(polyLineOptions);
 
         }
+
     }
-
-
 }

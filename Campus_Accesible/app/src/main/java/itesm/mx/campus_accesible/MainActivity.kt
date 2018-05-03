@@ -23,6 +23,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.view.View
 import itesm.mx.campus_accesible.DB.AppDatabase
+import itesm.mx.campus_accesible.Mapa.Edge
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
 BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
@@ -53,7 +54,8 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             }
             R.id.navigation_map -> {
                 var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
-                val map_fragment = MapFragment.newInstance(puntos)
+                var edges = ArrayList<Edge>(mDb!!.puntoModel().allEdges)
+                val map_fragment = MapFragment.newInstance(puntos,edges)
                 replaceFragment(map_fragment)
                 return true
             }

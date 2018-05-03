@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import itesm.mx.campus_accesible.Edificios.Edificio;
+import itesm.mx.campus_accesible.Mapa.Edge;
 import itesm.mx.campus_accesible.Mapa.Punto;
 import itesm.mx.campus_accesible.R;
 
@@ -30,12 +31,25 @@ public class DatabaseInitializer {
             String puntoName = name+i;
             String[] location = locations[i].split(" ");
             if (location.length == 2) {
-                double longitude = Double.parseDouble(location[0]);
-                double latitude = Double.parseDouble(location[1]);
+                double latitude = Double.parseDouble(location[0]);
+                double longitude = Double.parseDouble(location[1]);
                 addPunto(db, puntoName,longitude,latitude);
             }
         }
         db.puntoModel().insertAllEdificios(edificiosLista());
+
+        String[] edges = res.getStringArray(R.array.edges_array);
+        for(int i = 0; i < edges.length ; i++){
+            String[] edge = edges[i].split(" ");
+            if(edge.length == 3){
+                int to = Integer.parseInt(edge[0]);
+                int from = Integer.parseInt(edge[1]);
+                boolean accessible = Boolean.parseBoolean(edge[2]);
+
+                addEdge(db, to,from,accessible);
+
+            }
+        }
     }
 
     private static ArrayList<Edificio> edificiosLista() {
@@ -80,14 +94,23 @@ public class DatabaseInitializer {
         return edificioList;
     }
 
-    private static Punto addPunto(final AppDatabase db, final String name, final double longitude,
+    private static void addEdge(final AppDatabase db, final int to, final int from,
+                                final boolean accessible){
+        Edge edge = new Edge();
+        edge.setTo(to);
+        edge.setFrom(from);
+        edge.setAccessible(accessible);
+        db.puntoModel().insertEdge(edge);
+    }
+
+    private static void addPunto(final AppDatabase db, final String name, final double longitude,
                                   final double latitude){
         Punto punto = new Punto();
         punto.setName(name);
         punto.setLongitude_coordinate(longitude);
         punto.setLatitude_coordinate(latitude);
         db.puntoModel().insertPunto(punto);
-        return punto;
+        //return punto;
     }
 }
 
