@@ -7,18 +7,19 @@
     tools:context="itesm.mx.campus_accesible.game.GamePlayFragment">
 
     <TextView
+        android:id="@+id/tv_timer"
+        android:layout_marginTop="64dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Score:"
         android:textAlignment="center"
-        android:textSize="30sp"/>
+        android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/tv_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_score"
-        android:textSize="50sp"
-        />
+        android:textAlignment="viewStart"
+        android:textSize="20sp" />
 
     <GridView
         android:layout_width="match_parent"

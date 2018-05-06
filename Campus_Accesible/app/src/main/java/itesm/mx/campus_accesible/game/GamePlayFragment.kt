@@ -16,6 +16,7 @@ import android.widget.TextView
 
 import itesm.mx.campus_accesible.R
 import kotlinx.android.synthetic.main.fragment_game_play.*
+import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.concurrent.timer
 
@@ -27,11 +28,7 @@ import kotlin.concurrent.timer
  * Use the [GamePlayFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
-
-    // TODO: Rename and change types of parameters
-    private var mParam1: String? = null
-    private var mParam2: String? = null
+class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener, GameTimerDelegate {
 
     private var mListener: GameFragmentListener? = null
 
@@ -41,12 +38,16 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
     private var score = 0
     private var solvedCards: ArrayList<String> = ArrayList<String>()
     private var tvScore: TextView? = null
+    private var tvTimer: TextView? = null
+    private var timer = 0
+    private var fixedGameTimer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             firstCardText = arguments!!.getString("firstCardText", null)
             score = arguments!!.getInt("score", 0)
+            timer = arguments!!.getInt("timer", 0)
             if (arguments!!.getStringArrayList("solvedCards") != null) {
                 solvedCards = arguments!!.getStringArrayList("solvedCards")
             }
@@ -64,9 +65,45 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
         gridView.onItemClickListener = this
 
         tvScore = viewCreated.findViewById<TextView>(R.id.tv_score)
-        tvScore!!.text = score.toString()
+        tvScore!!.text = "Cartas: " + score.toString() + "/5"
+
+        tvTimer = viewCreated.findViewById<TextView>(R.id.tv_timer)
+        tvTimer!!.text = "Tiempo: 00:00"
 
         return viewCreated
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (fixedGameTimer != null) {
+            fixedGameTimer!!.cancel()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (fixedGameTimer == null) {
+            fixedGameTimer = fixedRateTimer(name = "game-timer",
+                    initialDelay = 1000, period = 1000) {
+                val delegate: GameTimerDelegate = this@GamePlayFragment
+                delegate.countTimer()
+            }
+        }
+    }
+
+    override fun countTimer() {
+        if (timer < 3599) {
+            timer++
+            val seconds = timer % 60
+            val minutes: Int = (timer / 60) % 60
+            val secondsString = if (seconds < 10) "0${seconds}" else "${seconds}"
+            val minutesString = if (minutes < 10) "0${minutes}" else "${minutes}"
+            tvTimer!!.text = "Tiempo: ${minutesString}:${secondsString}"
+        } else {
+            mListener!!.gameOver(score, timer)
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -120,12 +157,17 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
                 firstCardView = p1
             } else {
                 if (cardSelected == firstCardText) {
-                    (gridView.adapter as CardAdapter).taken[p2] = true
-                    score++
-                    tvScore!!.text = score.toString()
-                    solvedCards.add(cardSelected)
-                    // Update the score text.
-                    view!!.findViewById<TextView>(R.id.tv_score)
+                    if (firstCardIndex != p2) {
+                        (gridView.adapter as CardAdapter).taken[p2] = true
+                        score++
+                        tvScore!!.text = "Cartas: " + score.toString() + "/5"
+                        solvedCards.add(cardSelected)
+                        // Update the score text.
+                        view!!.findViewById<TextView>(R.id.tv_score)
+
+                        firstCardText = null
+                        firstCardView = null
+                    }
                 } else {
                     (gridView.adapter as CardAdapter).taken[firstCardIndex!!] = false
                     (gridView.adapter as CardAdapter).taken[p2] = false
@@ -136,15 +178,16 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
 
                     imageView.setImageResource(R.drawable.card_hidden)
                     textContent.visibility = INVISIBLE
+
+                    firstCardText = null
+                    firstCardView = null
                 }
-                firstCardText = null
-                firstCardView = null
             }
         }
 
         if (score == gridView.adapter.count / 2) {
             // The game is over.
-            mListener!!.gameOver(score);
+            mListener!!.gameOver(score, timer)
         }
     }
 
@@ -154,6 +197,9 @@ class GamePlayFragment : Fragment(), AdapterView.OnItemClickListener {
         // If the orientation changes.
         outState.putString("firstCardText", firstCardText)
         outState.putInt("score", score)
+        outState.putInt("timer", timer)
         outState.putStringArrayList("solvedCards", solvedCards)
     }
+
+
 }// Required empty public constructor

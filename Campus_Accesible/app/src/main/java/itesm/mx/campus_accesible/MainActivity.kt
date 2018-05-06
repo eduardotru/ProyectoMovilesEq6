@@ -38,8 +38,8 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         replaceFragment(GamePlayFragment.newInstance())
     }
 
-    override fun gameOver(score: Int) {
-        replaceFragment(GameOverFragment.newInstance(score))
+    override fun gameOver(score: Int, timer: Int) {
+        replaceFragment(GameOverFragment.newInstance(score, timer))
     }
 
     override fun startGame() {
