@@ -24,9 +24,10 @@ import android.support.v4.view.GravityCompat
 import android.view.View
 import itesm.mx.campus_accesible.DB.AppDatabase
 import itesm.mx.campus_accesible.Mapa.Edge
+import itesm.mx.campus_accesible.QRScanner.QRScannerListener
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
-BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
+BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener {
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
