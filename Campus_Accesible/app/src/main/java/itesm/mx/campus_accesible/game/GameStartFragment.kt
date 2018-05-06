@@ -33,7 +33,7 @@ class GameStartFragment : Fragment(), View.OnClickListener {
     val HIGH_SCORE = "high_score"
     var prefs: SharedPreferences? = null
 
-    var high_score: Int? = 0
+    var high_score: Int = 3600
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +48,15 @@ class GameStartFragment : Fragment(), View.OnClickListener {
 
         prefs = this.activity?.getSharedPreferences(PREFS_FILENAME, 0)
         if (prefs != null) {
-            high_score = prefs!!.getInt(HIGH_SCORE, 0)
+            high_score = prefs!!.getInt(HIGH_SCORE, 3600)
             var tvHighscore: TextView = view!!.findViewById<TextView>(R.id.tv_highscore)
-            tvHighscore.setText(high_score.toString())
+
+            val seconds = high_score % 60
+            val minutes = (high_score / 60) % 60
+            val secondsString = if (seconds < 10) "0${seconds}" else "${seconds}"
+            val minutesString = if (minutes < 10) "0${minutes}" else "${minutes}"
+            val high_score_text = "${minutesString}:${secondsString}"
+            tvHighscore.setText(high_score_text)
         }
 
         val buttonStart = view!!.findViewById<Button>(R.id.btn_game_start)
