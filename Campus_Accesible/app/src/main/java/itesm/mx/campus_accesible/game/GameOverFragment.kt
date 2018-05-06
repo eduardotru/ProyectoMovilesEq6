@@ -27,16 +27,18 @@ class GameOverFragment : Fragment(), View.OnClickListener {
     val HIGH_SCORE = "high_score"
     var prefs: SharedPreferences? = null
 
-    var high_score: Int? = 0
+    var high_score: Int = 0
 
     private var mListener: GameFragmentListener? = null
 
     private var score = 0
+    private var timer = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             score = arguments!!.getInt("score",0)
+            timer = arguments!!.getInt("timer",0)
         }
     }
 
@@ -45,18 +47,31 @@ class GameOverFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_game_over, container, false)
 
-        var resultsText = "Score: ${score}\n"
+        var seconds = timer % 60
+        var minutes: Int = (timer / 60) % 60
+        var secondsString = if (seconds < 10) "0${seconds}" else "${seconds}"
+        var minutesString = if (minutes < 10) "0${minutes}" else "${minutes}"
+        var resultsText = "Cartas: ${score}/5\n"
+        resultsText = resultsText + "Tiempo: ${minutesString}:${secondsString}\n"
+
         prefs = this.activity?.getSharedPreferences(PREFS_FILENAME, 0)
         if (prefs != null) {
-            high_score = prefs!!.getInt(HIGH_SCORE, 0)
-            if (score > high_score!!) {
-                resultsText = resultsText + "Congratulations! You have a new high score!\n"
-                high_score = score
+            high_score = prefs!!.getInt(HIGH_SCORE, 3600)
+            if (timer < high_score!! && score == 5) {
+                resultsText = resultsText + "¡Felicidades! ¡Nuevo Record!\n"
+                high_score = timer
                 prefs!!.edit().putInt(HIGH_SCORE, high_score!!).commit()
+            } else {
+                resultsText = resultsText + "¡Intenta otra vez!\n"
             }
         }
 
-        resultsText = resultsText + "High Score: ${high_score}"
+        seconds = high_score % 60
+        minutes = (high_score / 60) % 60
+        secondsString = if (seconds < 10) "0${seconds}" else "${seconds}"
+        minutesString = if (minutes < 10) "0${minutes}" else "${minutes}"
+        resultsText = resultsText + "Tiempo Record: ${minutesString}:${secondsString}"
+
         (view.findViewById<TextView>(R.id.results)).text = resultsText
         (view.findViewById<Button>(R.id.btn_try_again)).setOnClickListener(this)
         (view.findViewById<Button>(R.id.btn_exit)).setOnClickListener(this)
@@ -87,10 +102,11 @@ class GameOverFragment : Fragment(), View.OnClickListener {
 
     companion object {
 
-        fun newInstance(score: Int): GameOverFragment {
+        fun newInstance(score: Int, timer: Int): GameOverFragment {
             val fragment = GameOverFragment()
             val args = Bundle()
             args.putInt("score", score)
+            args.putInt("timer", timer)
             fragment.arguments = args
             return fragment
         }
