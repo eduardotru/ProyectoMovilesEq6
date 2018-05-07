@@ -23,9 +23,6 @@ import itesm.mx.campus_accesible.R;
 
 public class DetalleFragment extends Fragment {
 
-    private String nombre, banos;
-    private int idImagen;
-    private boolean elevador;
     private Edificio edificio;
 
     public static DetalleFragment newInstance(Edificio edificio) {
@@ -63,10 +60,16 @@ public class DetalleFragment extends Fragment {
 
         tvNombre.setText(edificio.getNombre());
         tvBanos.setText(edificio.getBano());
-//
-//        Bitmap bmp = BitmapFactory.decodeByteArray(edificio.getImagen(), 0, edificio.getImagen().length);
-//        ivImagen.setImageBitmap(Bitmap.createScaledBitmap(bmp, ivImagen.getWidth(),
-//                ivImagen.getHeight(), false));
+
+        if(edificio.getElevador())
+        {
+            tvElevador.setText(" Sí");
+        }
+        else {
+            tvElevador.setText(" No");
+        }
+
+        ivImagen.setImageResource(edificio.getImagen());
 
         return view;
 

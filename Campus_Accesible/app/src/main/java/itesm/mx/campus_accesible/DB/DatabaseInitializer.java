@@ -4,12 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 import itesm.mx.campus_accesible.Edificios.Edificio;
 import itesm.mx.campus_accesible.Mapa.Edge;
@@ -55,40 +50,40 @@ public class DatabaseInitializer {
     private static ArrayList<Edificio> edificiosLista() {
         ArrayList<Edificio> edificioList = new ArrayList<Edificio>();
 
-        Edificio e = new Edificio("Aulas 1", false, "A1-107", new byte[0]);
+        Edificio e = new Edificio("Aulas 1", false, "A1-107", R.drawable.aulas1);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 2", false, "A2-127", null);
+        e = new Edificio("Aulas 2", false, "A2-127", R.drawable.aulas2);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 3", false, "A3-105", null);
+        e = new Edificio("Aulas 3", false, "A3-105", R.drawable.aulas3);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 6", false, "A6-118", null);
+        e = new Edificio("Aulas 6", false, "A6-118", R.drawable.aulas6);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 4", false, "A1-101", null);
+        e = new Edificio("Aulas 4", false, "A1-101", R.drawable.aulas_4);
         edificioList.add(e);
 
-        e = new Edificio("Centrales", false, "CC-104", null);
+        e = new Edificio("Centrales", false, "CC-104", R.drawable.centrales);
         edificioList.add(e);
 
-        e = new Edificio("Gimnasio", false, "GI-111", null);
+        e = new Edificio("Gimnasio", false, "GI-111", R.drawable.gimnasio);
         edificioList.add(e);
 
-        e = new Edificio("Centro de Biotecnología", true, "Todos los baños son accesibles", null);
+        e = new Edificio("Centro de Biotecnología", true, "Todos los baños son accesibles", R.drawable.centro_biotecnologia);
         edificioList.add(e);
 
-        e = new Edificio("CETEC", true, "Todos los baños son accesibles", null);
+        e = new Edificio("CETEC", true, "Todos los baños son accesibles", R.drawable.cetec);
         edificioList.add(e);
 
-        e = new Edificio("CIAP", true, "Todos los baños son accesibles", null);
+        e = new Edificio("CIAP", true, "Todos los baños son accesibles", R.drawable.ciap);
         edificioList.add(e);
 
-        e = new Edificio("Rectoría", true, "Todos los baños son accesibles", null);
+        e = new Edificio("Rectoría", true, "Todos los baños son accesibles", R.drawable.rectoria);
         edificioList.add(e);
 
-        e = new Edificio("Biblioteca", true, "Todos los baños son accesibles", null);
+        e = new Edificio("Biblioteca", true, "Todos los baños son accesibles", R.drawable.biblioteca);
         edificioList.add(e);
 
         return edificioList;

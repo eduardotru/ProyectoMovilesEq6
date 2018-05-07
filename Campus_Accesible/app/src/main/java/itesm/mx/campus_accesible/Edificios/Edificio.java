@@ -22,12 +22,12 @@ public class Edificio implements Serializable{
     private String bano;
 
     @ColumnInfo(name = "imagen")
-    private byte[] imagen;
+    private int imagen;
 
     @PrimaryKey(autoGenerate = true)
     private int e_id;
 
-    public Edificio (String nombre, boolean elevador, String bano, byte[] imagen){
+    public Edificio (String nombre, boolean elevador, String bano, int imagen){
         this.nombre = nombre;
         this.elevador = elevador;
         this.bano = bano;
@@ -47,8 +47,8 @@ public class Edificio implements Serializable{
     public void setBano(String bano) {this.bano = bano; }
     public String getBano() { return bano; }
 
-    public void setImagen(byte[] bano) {this.imagen = imagen; }
-    public byte[] getImagen() {return imagen; }
+    public void setImagen(int imagen) {this.imagen = imagen; }
+    public int getImagen() {return imagen; }
 
     public void setE_id(int e_id) {this.e_id = e_id; }
     public int getE_id() {return e_id; }

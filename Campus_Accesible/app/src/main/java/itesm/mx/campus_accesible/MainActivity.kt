@@ -108,8 +108,11 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             if(menuItem.title == "Créditos") {
                 replaceFragment(CreditsFragment.newInstance())
             }
-            val frag = DetalleFragment.newInstance(edificio)
-            replaceFragment(frag)
+            else if (edificio != null)
+            {
+                val frag = DetalleFragment.newInstance(edificio)
+                replaceFragment(frag)
+            }
 
             true
         }
