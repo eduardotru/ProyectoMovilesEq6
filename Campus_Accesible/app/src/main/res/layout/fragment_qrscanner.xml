@@ -5,11 +5,6 @@
     android:orientation="vertical"
     tools:context="itesm.mx.campus_accesible.QRScanner.QRScannerFragment">
 
-    <TextView
-        android:text="Hola te pico la cola"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <SurfaceView
         android:id="@+id/surface_view"
         android:layout_width="match_parent"
