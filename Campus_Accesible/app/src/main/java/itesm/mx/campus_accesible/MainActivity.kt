@@ -22,12 +22,14 @@ import java.util.ArrayList
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.view.View
+import itesm.mx.campus_accesible.Creditos.CreditsFragment
 import itesm.mx.campus_accesible.DB.AppDatabase
 import itesm.mx.campus_accesible.Mapa.Edge
 import itesm.mx.campus_accesible.QRScanner.QRScannerListener
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
-BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener {
+BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener,
+        CreditsFragment.CreditsListener {
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
@@ -94,7 +96,9 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
             //Agregar codigo del detalle aqui
 
-
+            if(menuItem.title == "Créditos") {
+                replaceFragment(CreditsFragment.newInstance())
+            }
             true
         }
 
@@ -131,7 +135,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         for (edificio in listEdificios!!) {
             menu.add(edificio.nombre)
         }
-
+        menu.add("Créditos")
         navigation.selectedItemId = R.id.navigation_map
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
