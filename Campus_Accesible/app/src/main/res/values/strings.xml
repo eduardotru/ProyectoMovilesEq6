@@ -14,6 +14,9 @@
     <string name="highscore_title">Tiempo Record: </string>
     <string name="btn_exit">Menú Principal</string>
     <string name="btn_try_again">Jugar Otra Vez</string>
+    <string name="credits_title">Créditos</string>
+    <string name="credits">Desarrollada por:\nEduardo Enrique Trujillo Ramos\nAna Jimena Lomeli Cantú\nLuis Erick Zul Rabasa\nKarla Alexandra Robledo Bandala\n\nPara el departamento de Campus Accesible del Tecnológico de Monterrey Campus Monterrey.
+    </string>
 
     <string name="hello_blank_fragment">Hola</string>
 
