@@ -192,7 +192,10 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     }
 
     override fun qrScannerDetected(barcode: Barcode) {
-        if(barcode.valueFormat == Barcode.TEXT) {
+        val name = barcode.rawValue
+        val edificio = hashmapEdificios[name]
+        if(barcode.valueFormat == Barcode.TEXT && edificio != null) {
+            replaceFragment(DetalleFragment.newInstance(edificio))
             Toast.makeText(this, barcode.displayValue, Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, R.string.barcode_failed, Toast.LENGTH_SHORT).show()
