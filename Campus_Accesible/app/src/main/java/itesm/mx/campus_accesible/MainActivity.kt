@@ -1,7 +1,9 @@
 package itesm.mx.campus_accesible
 
 
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -28,10 +30,11 @@ import itesm.mx.campus_accesible.Mapa.Edge
 import itesm.mx.campus_accesible.QRScanner.QRScannerListener
 import itesm.mx.campus_accesible.Edificios.DetalleFragment
 import itesm.mx.campus_accesible.Edificios.Edificio
+import itesm.mx.campus_accesible.ReportarError.ReportarErrorFragment
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
 BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener,
-        CreditsFragment.CreditsListener {
+        CreditsFragment.CreditsListener, ReportarErrorFragment.ReportarErrorListener {
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
@@ -57,6 +60,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_bug -> {
+                replaceFragment(ReportarErrorFragment.newInstance())
                 return true
             }
             R.id.navigation_map -> {
@@ -227,6 +231,35 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
     override fun fetchDestination(longitude: Double, latitude: Double): ArrayList<Punto> {
         return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
+    }
+
+    override fun reportarDatos() {
+        enviarCorreo("Error en Datos de la aplicación Android", "Error encontrado: ")
+    }
+
+    override fun reportarRuta() {
+        enviarCorreo("Error en la Ruta de la aplicación Android", "Error encontrado: ")
+
+    }
+
+    private fun enviarCorreo(asunto: String , texto: String) {
+        val to = arrayOf("jimena.lomeli1@gmail.com")
+        val cc = arrayOf("jimena.lomeli1@gmail.com")
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.setData(Uri.parse("mailto:"))
+        emailIntent.setType("text/plain")
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, to)
+        emailIntent.putExtra(Intent.EXTRA_CC, cc)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, asunto)
+        emailIntent.putExtra(Intent.EXTRA_TEXT, texto)
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Seleccione una aplicación "))
+            finish()
+        } catch (ex: android.content.ActivityNotFoundException) {
+            Toast.makeText(this, "No se pudo enviar el correo", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onBackPressed() {
