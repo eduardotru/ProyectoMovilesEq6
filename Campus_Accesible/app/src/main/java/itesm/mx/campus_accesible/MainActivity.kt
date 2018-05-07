@@ -202,4 +202,14 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     override fun fetchDestination(longitude: Double, latitude: Double): ArrayList<Punto> {
         return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
     }
+
+    override fun onBackPressed() {
+        val frag = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if(frag is MapFragment) {
+            super.onBackPressed()
+        } else {
+            navigation.selectedItemId = R.id.navigation_map
+        }
+    }
+
 }
