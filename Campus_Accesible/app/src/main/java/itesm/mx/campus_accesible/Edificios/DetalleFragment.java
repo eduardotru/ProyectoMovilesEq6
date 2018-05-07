@@ -1,6 +1,8 @@
 package itesm.mx.campus_accesible.Edificios;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,10 +26,13 @@ public class DetalleFragment extends Fragment {
     private String nombre, banos;
     private int idImagen;
     private boolean elevador;
+    private Edificio edificio;
 
-    public static DetalleFragment newInstance(Bundle bundle) {
+    public static DetalleFragment newInstance(Edificio edificio) {
         DetalleFragment fragment = new DetalleFragment();
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putSerializable("Edificio",edificio);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -37,11 +42,12 @@ public class DetalleFragment extends Fragment {
 
         Bundle args = getArguments();
 
+
+
         if(args != null) {
-            nombre = args.getString("nombre");
-            banos = args.getString("banos");
-            elevador = args.getBoolean("elevador");
-            idImagen = args. getInt("imagen", R.mipmap.ic_launcher);
+            edificio =(Edificio)args.getSerializable("Edificio");
+        } else {
+            edificio = new Edificio();
         }
     }
 
@@ -55,11 +61,12 @@ public class DetalleFragment extends Fragment {
         TextView tvElevador = (TextView) view.findViewById(R.id.text_valorElevador);
         ImageView ivImagen = (ImageView) view.findViewById(R.id.image_edificio);
 
-        tvNombre.setText(nombre);
-        tvBanos.setText(banos);
-
-        Drawable drawable = ContextCompat.getDrawable(getContext(),idImagen);
-        ivImagen.setImageDrawable(drawable);
+        tvNombre.setText(edificio.getNombre());
+        tvBanos.setText(edificio.getBano());
+//
+//        Bitmap bmp = BitmapFactory.decodeByteArray(edificio.getImagen(), 0, edificio.getImagen().length);
+//        ivImagen.setImageBitmap(Bitmap.createScaledBitmap(bmp, ivImagen.getWidth(),
+//                ivImagen.getHeight(), false));
 
         return view;
 

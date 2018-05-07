@@ -4,12 +4,14 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 /**
  * Created by jime on 4/15/18.
  */
 
 @Entity
-public class Edificio {
+public class Edificio implements Serializable{
     @ColumnInfo(name = "nombre")
     private String nombre;
 

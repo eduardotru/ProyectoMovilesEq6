@@ -55,7 +55,7 @@ public class DatabaseInitializer {
     private static ArrayList<Edificio> edificiosLista() {
         ArrayList<Edificio> edificioList = new ArrayList<Edificio>();
 
-        Edificio e = new Edificio("Aulas 1", false, "A1-107", null);
+        Edificio e = new Edificio("Aulas 1", false, "A1-107", new byte[0]);
         edificioList.add(e);
 
         e = new Edificio("Aulas 2", false, "A2-127", null);

@@ -26,6 +26,7 @@ import itesm.mx.campus_accesible.Creditos.CreditsFragment
 import itesm.mx.campus_accesible.DB.AppDatabase
 import itesm.mx.campus_accesible.Mapa.Edge
 import itesm.mx.campus_accesible.QRScanner.QRScannerListener
+import itesm.mx.campus_accesible.Edificios.DetalleFragment
 import itesm.mx.campus_accesible.Edificios.Edificio
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
@@ -35,6 +36,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
     private var hashmapEdificios = HashMap <String, Edificio>()
+    private lateinit var curFrag: Fragment
 
     override fun goToMainMenu() {
         replaceFragment(GameStartFragment.newInstance())
@@ -80,12 +82,18 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     }
 
     fun replaceFragment(frag: Fragment) {
+        curFrag = frag
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, frag).commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if(savedInstanceState != null) {
+            curFrag = supportFragmentManager.getFragment(savedInstanceState,"lastFragment")
+            replaceFragment(curFrag)
+        }
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -100,6 +108,9 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             if(menuItem.title == "Créditos") {
                 replaceFragment(CreditsFragment.newInstance())
             }
+            val frag = DetalleFragment.newInstance(edificio)
+            replaceFragment(frag)
+
             true
         }
 
@@ -143,6 +154,12 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         actionbar!!.setDisplayHomeAsUpEnabled(true)
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu)
 
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        supportFragmentManager.putFragment(outState,"lastFragment", curFrag)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
