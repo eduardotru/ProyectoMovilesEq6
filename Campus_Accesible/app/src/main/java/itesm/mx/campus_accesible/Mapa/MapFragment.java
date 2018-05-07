@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,7 +56,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private LatLng dest;
     private boolean hasPickedOne;
     private boolean hasPickedTwo;
-
+    private FloatingActionButton fab;
 
     public MapFragment() {
         // Required empty public constructor
@@ -87,6 +88,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_map, container,
                 false);
+        fab = (FloatingActionButton) v.findViewById(R.id.fab_mapeditor);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearRutes();
+            }
+        });
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -132,34 +140,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        for(Punto p : allPuntos){
-            double longitude = p.getLongitude_coordinate();
-            double latitude = p.getLatitude_coordinate();
-
-            LatLng point = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(point).title("Marker in "+p.getName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(point)
-                    .zoom(17.5f).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-
-
-        }
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                LatLng position = marker.getPosition();
-                System.out.println(marker.getTitle());
-                setPickedElements(position);
-                return false;
-            }
-        });
+        addMarkers();
     }
 
-    //&& (longitude!= origin.longitude && latitude!=origin.latitude)
+
     private void setPickedElements(LatLng position){
         double longitude = position.longitude;
         double latitude = position.latitude;
@@ -180,12 +164,47 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
+    private void clearRutes(){
+        mMap.clear();
+        hasPickedOne = false;
+        hasPickedTwo = false;
+        addMarkers();
+
+    }
+
+    private void addMarkers(){
+        for(Punto p : allPuntos){
+            double longitude = p.getLongitude_coordinate();
+            double latitude = p.getLatitude_coordinate();
+
+            LatLng point = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(point)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(point)
+                    .zoom(17.3f).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+
+        }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.chosen_marker));
+                LatLng position = marker.getPosition();
+                setPickedElements(position);
+                return false;
+            }
+        });
+    }
 
 
 
     private void addOriginDestMarker(LatLng position){
-        mMap.addMarker(new MarkerOptions().position(position).title("Origen")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+        mMap.addMarker(new MarkerOptions().position(position)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.chosen_marker)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(position)

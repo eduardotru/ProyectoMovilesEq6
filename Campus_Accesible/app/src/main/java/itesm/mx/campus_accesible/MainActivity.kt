@@ -85,7 +85,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navigationView = findViewById <NavigationView>(R.id.nav_view)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
