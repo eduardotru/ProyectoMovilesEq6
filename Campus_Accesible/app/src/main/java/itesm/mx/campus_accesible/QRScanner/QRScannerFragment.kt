@@ -50,7 +50,7 @@ class QRScannerFragment : Fragment(), SurfaceHolder.Callback {
             override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
                 val barcodes = detections?.detectedItems
                 if (barcodes != null && barcodes.size() > 0) {
-                    mListener?.qrScannerDetected(barcodes[0])
+                    mListener?.qrScannerDetected(barcodes.valueAt(0))
                 }
             }
         })
@@ -84,11 +84,6 @@ class QRScannerFragment : Fragment(), SurfaceHolder.Callback {
     override fun onDetach() {
         super.onDetach()
         mListener = null
-    }
-
-    interface QRScannerListener {
-        fun qrScannerDetected(barcode: Barcode)
-        fun requestCameraPermission()
     }
 
     companion object {

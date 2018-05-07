@@ -23,9 +23,11 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.view.View
 import itesm.mx.campus_accesible.DB.AppDatabase
+import itesm.mx.campus_accesible.Mapa.Edge
+import itesm.mx.campus_accesible.QRScanner.QRScannerListener
 
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
-BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerFragment.QRScannerListener {
+BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener {
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
@@ -38,8 +40,8 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         replaceFragment(GamePlayFragment.newInstance())
     }
 
-    override fun gameOver(score: Int) {
-        replaceFragment(GameOverFragment.newInstance(score))
+    override fun gameOver(score: Int, timer: Int) {
+        replaceFragment(GameOverFragment.newInstance(score, timer))
     }
 
     override fun startGame() {
@@ -53,7 +55,8 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             }
             R.id.navigation_map -> {
                 var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
-                val map_fragment = MapFragment.newInstance(puntos)
+                var edges = ArrayList<Edge>(mDb!!.puntoModel().allEdges)
+                val map_fragment = MapFragment.newInstance(puntos,edges)
                 replaceFragment(map_fragment)
                 return true
             }
@@ -192,11 +195,21 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
 
     private fun populateDB() {
-        DatabaseInitializer.populate(mDb!!)
+        DatabaseInitializer.populate(mDb!!, this);
     }
 
 
     override fun fetchDestination(longitude: Double, latitude: Double): ArrayList<Punto> {
         return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
     }
+
+    override fun onBackPressed() {
+        val frag = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if(frag is MapFragment) {
+            super.onBackPressed()
+        } else {
+            navigation.selectedItemId = R.id.navigation_map
+        }
+    }
+
 }

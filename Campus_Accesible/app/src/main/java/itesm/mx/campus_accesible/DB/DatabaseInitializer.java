@@ -1,7 +1,10 @@
 package itesm.mx.campus_accesible.DB;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -9,25 +12,44 @@ import java.util.List;
 import java.util.ListIterator;
 
 import itesm.mx.campus_accesible.Edificios.Edificio;
+import itesm.mx.campus_accesible.Mapa.Edge;
 import itesm.mx.campus_accesible.Mapa.Punto;
+import itesm.mx.campus_accesible.R;
 
 public class DatabaseInitializer {
 
     private static String name = "Punto";
 
-
-    public static void populate(@NonNull final AppDatabase db) {
-        populateWithData(db);
+    public static void populate(@NonNull final AppDatabase db, Activity activity) {
+        populateWithData(db, activity);
     }
 
-    private static void populateWithData(AppDatabase db) {
-        for(int i = 0 ; i < pointsCoordinates.length; i++){
+    private static void populateWithData(AppDatabase db, Activity activity) {
+        Resources res = activity.getResources();
+        String[] locations = res.getStringArray(R.array.locations);
+        for (int i = 0; i < locations.length; i++) {
             String puntoName = name+i;
-            double longitude = pointsCoordinates[i][0];
-            double latitude = pointsCoordinates[i][1];
-            addPunto(db, puntoName,longitude,latitude);
+            String[] location = locations[i].split(" ");
+            if (location.length == 2) {
+                double latitude = Double.parseDouble(location[0]);
+                double longitude = Double.parseDouble(location[1]);
+                addPunto(db, puntoName,longitude,latitude);
+            }
         }
         db.puntoModel().insertAllEdificios(edificiosLista());
+
+        String[] edges = res.getStringArray(R.array.edges_array);
+        for(int i = 0; i < edges.length ; i++){
+            String[] edge = edges[i].split(" ");
+            if(edge.length == 3){
+                int to = Integer.parseInt(edge[0]);
+                int from = Integer.parseInt(edge[1]);
+                boolean accessible = Boolean.parseBoolean(edge[2]);
+
+                addEdge(db, to,from,accessible);
+
+            }
+        }
     }
 
     private static ArrayList<Edificio> edificiosLista() {
@@ -72,26 +94,23 @@ public class DatabaseInitializer {
         return edificioList;
     }
 
-    private static Punto addPunto(final AppDatabase db, final String name, final double longitude,
+    private static void addEdge(final AppDatabase db, final int to, final int from,
+                                final boolean accessible){
+        Edge edge = new Edge();
+        edge.setTo(to);
+        edge.setFrom(from);
+        edge.setAccessible(accessible);
+        db.puntoModel().insertEdge(edge);
+    }
+
+    private static void addPunto(final AppDatabase db, final String name, final double longitude,
                                   final double latitude){
         Punto punto = new Punto();
         punto.setName(name);
         punto.setLongitude_coordinate(longitude);
         punto.setLatitude_coordinate(latitude);
         db.puntoModel().insertPunto(punto);
-        return punto;
+        //return punto;
     }
-
-
-    //  Contiene las coordenadas de los puntos de inicio/destino dentro del campus
-    private static double pointsCoordinates[][] =
-            {
-                    {25.652536,-100.290787},{25.652536,-100.290463},{25.652687,-100.290451},
-                    {25.652524,-100.289956},{25.652582,-100.290078},{25.65264,-100.290171},
-                    {25.65272,-100.290143},{25.652757,-100.290057},{25.652848,-100.29007},
-                    {25.652519,-100.289788},{25.652606,-100.289462},{25.652787,-100.289398},
-                    {25.652671,-100.289113},{25.652504,-100.289105},{25.652386,-100.289089}
-            };
-
 }
 

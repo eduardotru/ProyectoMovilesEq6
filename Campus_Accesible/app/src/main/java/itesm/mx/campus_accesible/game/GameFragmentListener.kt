@@ -5,7 +5,7 @@ package itesm.mx.campus_accesible.game
  */
 interface GameFragmentListener {
     fun startGame()
-    fun gameOver(score: Int)
+    fun gameOver(score: Int, timer: Int)
     fun goToMainMenu()
     fun restartGame()
 }

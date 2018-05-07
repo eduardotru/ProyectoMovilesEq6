@@ -19,8 +19,16 @@ import java.util.Collections.shuffle
 class CardAdapter(context: Context) : BaseAdapter() {
     val context = context
 
-    val textContents: ArrayList<String> = arrayListOf("abc", "def", "ghi", "jkl", "mno",
-                                                      "abc", "def", "ghi", "jkl", "mno")
+    val textContents: ArrayList<String> = arrayListOf("Discapacidad Motriz: Movimiento y control del cuerpo",
+            "Discapacidad Sensorial: Auditiva",
+            "Discapacidad Sensorial: Visual",
+            "Discapacidad Intelectual",
+            "Discapacidad Psicosocial: Depresion, Esquizofrenia, etc.",
+            "Discapacidad Motriz: Movimiento y control del cuerpo",
+            "Discapacidad Sensorial: Auditiva",
+            "Discapacidad Sensorial: Visual",
+            "Discapacidad Intelectual",
+            "Discapacidad Psicosocial: Depresion, Esquizofrenia, etc.")
     val taken: ArrayList<Boolean> = arrayListOf(false, false, false, false, false,
                                                 false, false, false, false, false)
 

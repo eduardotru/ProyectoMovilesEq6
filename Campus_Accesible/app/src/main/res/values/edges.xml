@@ -1,0 +1,1517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="edges_array">
+        <item>
+    		112
+	    	113
+		    true
+        </item>
+        <item>
+		    1
+            2
+            true
+        </item>
+        <item>
+            1
+            126
+            true
+        </item>
+        <item>
+            2
+            3
+            false
+        </item>
+        <item>
+            2
+            4
+            true
+        </item>
+        <item>
+            3
+            9
+            true
+        </item>
+        <item>
+            4
+            5
+            true
+        </item>
+        <item>
+            4
+            8
+            false
+        </item>
+        <item>
+		4
+		10
+		true
+        </item>
+        <item>
+		4
+
+		17
+
+		true
+        </item>
+
+        <item>
+		4
+
+		16
+
+		true
+        </item>
+
+        <item>
+		5
+
+		6
+
+		true
+        </item>
+
+        <item>
+		6
+
+		7
+
+		true
+        </item>
+
+        <item>
+		7
+
+		8
+
+		true
+        </item>
+
+
+        <item>
+		8
+
+		9
+
+		true
+        </item>
+
+
+        <item>
+		9
+
+		12
+
+		true
+        </item>
+
+        <item>
+		10
+
+		11
+            false
+        </item>
+
+
+        <item>
+		10
+
+		16
+
+		true
+        </item>
+
+
+        <item>
+		10
+
+		17
+
+		true
+        </item>
+
+
+        <item>
+		10
+
+		14
+
+		true
+        </item>
+
+
+        <item>
+		11
+
+		12
+
+		true
+        </item>
+
+
+        <item>
+		12
+
+		13
+
+		true
+        </item>
+
+
+        <item>
+		13
+
+		14
+
+		true
+        </item>
+
+        <item>
+		14
+
+		15
+
+		true
+        </item>
+
+        <item>
+		15
+
+		26
+
+		true
+        </item>
+
+        <item>
+		16
+
+		17
+
+		true
+        </item>
+
+        <item>
+		16
+
+		18
+
+		true
+        </item>
+
+        <item>
+		16
+
+		19
+
+		false
+        </item>
+
+        <item>
+		17
+
+		23
+
+		true
+        </item>
+
+        <item>
+		18
+
+		20
+
+		true
+        </item>
+
+        <item>
+		19
+
+		20
+
+		true
+        </item>
+
+        <item>
+		19
+
+		21
+
+		false
+        </item>
+
+        <item>
+		20
+
+		22
+
+		true
+        </item>
+
+        <item>
+		20
+
+		40
+
+		true
+        </item>
+
+        <item>
+		21
+
+		22
+
+		true
+        </item>
+
+        <item>
+		23
+
+		24
+
+		true
+        </item>
+
+        <item>
+		24
+
+		25
+
+		true
+        </item>
+
+        <item>
+		25
+
+		27
+
+		true
+        </item>
+
+        <item>
+		26
+
+		27
+
+		true
+        </item>
+
+        <item>
+		26
+
+		28
+
+		true
+        </item>
+
+        <item>
+		27
+
+		32
+
+		true
+        </item>
+
+        <item>
+		28
+
+		29
+
+		true
+        </item>
+
+        <item>
+		29
+
+		31
+
+		false
+        </item>
+
+        <item>
+		30
+
+		31
+
+		true
+        </item>
+
+        <item>
+		30
+
+		33
+
+		true
+        </item>
+
+        <item>
+		31
+
+		32
+
+		true
+        </item>
+
+        <item>
+		32
+
+		45
+
+            true
+        </item>
+
+
+        <item>
+		32
+
+		53
+
+		false
+        </item>
+
+        <item>
+		33
+
+		34
+
+		true
+        </item>
+
+        <item>
+		33
+
+		58
+
+		true
+        </item>
+
+        <item>
+		34
+
+		35
+
+		false
+        </item>
+
+        <item>
+		34
+
+		37
+
+		true
+        </item>
+
+        <item>
+		35
+
+		36
+
+		true
+        </item>
+
+        <item>
+		36
+
+		38
+
+		true
+        </item>
+
+        <item>
+		37
+
+		39
+
+		true
+        </item>
+
+
+        <item>
+		38
+
+		39
+
+		true
+        </item>
+
+        <item>
+		39
+
+		64
+
+		true
+        </item>
+
+        <item>
+		40
+
+		41
+
+		true
+        </item>
+
+
+        <item>
+		40
+
+		42
+
+		false
+        </item>
+
+
+        <item>
+		41
+
+		44
+
+		true
+        </item>
+
+
+        <item>
+		42
+
+		43
+
+		true
+        </item>
+
+
+        <item>
+		42
+
+		116
+
+		true
+        </item>
+
+        <item>
+
+		42
+
+		118
+
+		true
+        </item>
+
+
+        <item>
+		43
+
+		44
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		44
+
+		45
+
+		true
+        </item>
+
+
+        <item>
+		44
+
+		47
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		47
+
+		49
+
+		true
+        </item>
+
+
+        <item>
+		47
+
+		53
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		49
+
+		52
+
+		true
+        </item>
+
+
+        <item>
+		49
+
+		54
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+
+        <item>
+		46
+
+		46
+
+		true
+        </item>
+
+        <item>
+		46
+
+		46
+
+
+		true
+        </item>
+
+        <item>
+		52
+
+		55
+
+		true
+        </item>
+
+        <item>
+		52
+
+		108
+
+		true
+        </item>
+
+        <item>
+		53
+
+		54
+
+		false
+        </item>
+
+        <item>
+		54
+
+		55
+
+		false
+        </item>
+
+
+        <item>
+		55
+
+		56
+
+		false
+        </item>
+
+        <item>
+		56
+
+		57
+
+		true
+
+        </item>
+
+        <item>
+		56
+
+		61
+
+		true
+        </item>
+
+        <item>
+		56
+
+		108
+
+		true
+        </item>
+
+        <item>
+		57
+
+		58
+
+		true
+        </item>
+
+        <item>
+		57
+
+		59
+
+		true
+        </item>
+
+
+        <item>
+		58
+
+		63
+
+		true
+        </item>
+
+        <item>
+		59
+
+		60
+
+		true
+        </item>
+
+        <item>
+		60
+
+		61
+
+		true
+        </item>
+
+        <item>
+		62
+
+		63
+
+		true
+        </item>
+
+        <item>
+		63
+
+		64
+
+		true
+        </item>
+
+        <item>
+		64
+
+		65
+
+		true
+        </item>
+
+
+        <item>
+		64
+
+		70
+
+		true
+        </item>
+
+        <item>
+		65
+
+		66
+
+		true
+        </item>
+
+        <item>
+		65
+
+		68
+
+		true
+        </item>
+
+        <item>
+		66
+
+		67
+
+		true
+        </item>
+
+        <item>
+		66
+
+		68
+
+		true
+        </item>
+
+        <item>
+		68
+
+		69
+
+		true
+        </item>
+
+
+        <item>
+		69
+
+		70
+
+		true
+        </item>
+
+        <item>
+		70
+
+		71
+
+		true
+        </item>
+
+
+        <item>
+		71
+
+		72
+
+		true
+        </item>
+
+
+        <item>
+		72
+
+		73
+
+		true
+        </item>
+
+
+        <item>
+		73
+
+		74
+
+		true
+        </item>
+
+        <item>
+		74
+
+		75
+
+		false
+        </item>
+
+
+        <item>
+		74
+
+		78
+
+		true
+        </item>
+
+        <item>
+		75
+
+		76
+
+		true
+        </item>
+
+        <item>
+		76
+
+		77
+
+		true
+        </item>
+
+        <item>
+		76
+
+		86
+
+		true
+        </item>
+
+        <item>
+		77
+
+		78
+
+		true
+        </item>
+
+
+        <item>
+		78
+
+		79
+
+		true
+        </item>
+
+
+        <item>
+		79
+
+		80
+
+		true
+        </item>
+
+        <item>
+		80
+
+		81
+
+		true
+        </item>
+
+        <item>
+		80
+
+		82
+
+		true
+        </item>
+
+
+        <item>
+		82
+
+		83
+
+		true
+        </item>
+
+        <item>
+		82
+
+		84
+
+		true
+        </item>
+
+        <item>
+		84
+
+		85
+
+		true
+        </item>
+
+        <item>
+		84
+
+		86
+
+		true
+        </item>
+
+        <item>
+		86
+
+		87
+
+		true
+        </item>
+
+
+        <item>
+			88
+			87
+			true
+        </item>
+
+        <item>
+		87
+
+		89
+
+		true
+        </item>
+
+        <item>
+		88
+
+		91
+
+		true
+        </item>
+
+        <item>
+		89
+
+		90
+
+		true
+        </item>
+
+        <item>
+		90
+
+		91
+
+		true
+        </item>
+
+        <item>
+		91
+
+		92
+
+		true
+        </item>
+
+        <item>
+		92
+
+		93
+
+		true
+        </item>
+
+        <item>
+		92
+
+		95
+
+		false
+        </item>
+
+
+        <item>
+		93
+
+		94
+
+		true
+        </item>
+
+        <item>
+		93
+
+		102
+
+		true
+        </item>
+
+        <item>
+		94
+
+		95
+
+		true
+        </item>
+
+        <item>
+		94
+
+		96
+
+		true
+        </item>
+
+        <item>
+		95
+
+		97
+
+		true
+        </item>
+
+        <item>
+		96
+
+		97
+
+		true
+        </item>
+
+        <item>
+		96
+
+		98
+
+		true
+        </item>
+
+        <item>
+		97
+
+		99
+
+		true
+        </item>
+
+        <item>
+		98
+
+		99
+
+		true
+        </item>
+
+        <item>
+		98
+
+		100
+
+		true
+        </item>
+
+        <item>
+		100
+
+		101
+
+		true
+        </item>
+
+        <item>
+		101
+
+		103
+
+		false
+        </item>
+
+
+        <item>
+		101
+
+		112
+
+		true
+        </item>
+
+
+        <item>
+		102
+
+		103
+
+		true
+        </item>
+
+        <item>
+		102
+
+		104
+
+		true
+        </item>
+
+        <item>
+		103
+
+		104
+
+		true
+        </item>
+
+        <item>
+		104
+
+		105
+
+		true
+        </item>
+
+        <item>
+		105
+		106
+		false
+        </item>
+
+        <item>
+		106
+		107
+		true
+        </item>
+
+        <item>
+		106
+		110
+		false
+        </item>
+
+        <item>
+		107
+		109
+		true
+        </item>
+
+        <item>
+		108
+		109
+		true
+        </item>
+
+        <item>
+		109
+
+		110
+
+		true
+        </item>
+
+        <item>
+		110
+
+		111
+
+		true
+        </item>
+
+
+        <item>
+		110
+
+		115
+
+		true
+        </item>
+
+        <item>
+		111
+
+		112
+
+		true
+        </item>
+
+        <item>
+		111
+
+		114
+
+		true
+        </item>
+
+        <item>
+		113
+
+		114
+
+		false
+        </item>
+
+        <item>
+		113
+
+		121
+
+		true
+        </item>
+
+        <item>
+		113
+
+		123
+
+		true
+        </item>
+
+        <item>
+		114
+
+		115
+
+		true
+        </item>
+
+        <item>
+		114
+
+		117
+
+		true
+        </item>
+
+        <item>
+		115
+
+		116
+
+		true
+        </item>
+
+        <item>
+		116
+
+		117
+
+		true
+        </item>
+
+        <item>
+		46
+		46
+		true
+        </item>
+
+        <item>
+		117
+		121
+		false
+        </item>
+
+        <item>
+		118
+		119
+		true
+        </item>
+
+        <item>
+		119
+
+		120
+
+		true
+        </item>
+
+        <item>
+		119
+
+		126
+
+		true
+        </item>
+
+        <item>
+		120
+
+		121
+
+		true
+        </item>
+
+        <item>
+		121
+
+		122
+
+		true
+        </item>
+
+        <item>
+		122
+
+		123
+
+		true
+        </item>
+
+        <item>
+		122
+
+		124
+
+		true
+        </item>
+
+        <item>
+		123
+
+		125
+
+		true
+        </item>
+
+        <item>
+		124
+		125
+		true
+
+        </item>
+		<item>
+			105
+			127
+			true
+		</item>
+		<item>
+			106
+			110
+			false
+		</item>
+		<item>
+			110
+			127
+			false
+		</item>
+		<item>
+			106
+			127
+			false
+		</item>
+		<item>
+			127
+			128
+			false
+		</item>
+		<item>
+			106
+			128
+			false
+		</item>
+		<item>
+            105
+            128
+            true
+        </item>
+		<item>
+			106
+			108
+			true
+		</item>
+		<item>
+			108
+			128
+			false
+		</item>
+		<item>
+			107
+			128
+			true
+		</item>
+		<item>
+			61
+			128
+			true
+		</item>
+		<item>
+			127
+			88
+            true
+        </item>
+		<item>
+			127
+			87
+			true
+		</item>
+		<item>
+			105
+			88
+			true
+		</item>
+		<item>
+			61
+			129
+			true
+		</item>
+		<item>
+			74
+			129
+			true
+		</item>
+		<item>
+			92
+			127
+			true
+		</item>
+		<item>
+			115
+			130
+			true
+		</item>
+		<item>
+			49
+			130
+			true
+		</item>
+		<item>
+			52
+			130
+			true
+		</item>
+		<item>
+			49
+			131
+			true
+		</item>
+		<item>
+			116
+			131
+			true
+		</item>
+    </string-array>
+
+
+</resources>
