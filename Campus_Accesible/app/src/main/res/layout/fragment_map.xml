@@ -5,6 +5,15 @@
     android:id="@+id/map"
     tools:context="itesm.mx.campus_accesible.Mapa.MapFragment">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_mapeditor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_edit_location_white_24dp"
+        android:layout_margin="16dp" />
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
