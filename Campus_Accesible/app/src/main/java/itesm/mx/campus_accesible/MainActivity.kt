@@ -1,6 +1,7 @@
 package itesm.mx.campus_accesible
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
+import android.support.v7.app.AlertDialog
 import android.view.View
 import itesm.mx.campus_accesible.Creditos.CreditsFragment
 import itesm.mx.campus_accesible.DB.AppDatabase
@@ -104,6 +106,16 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         if(savedInstanceState != null) {
             curFrag = supportFragmentManager.getFragment(savedInstanceState,"lastFragment")
             replaceFragment(curFrag)
+        } else {
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setTitle("Custom dialog")
+            dialogBuilder.setMessage("Enter Name Below")
+            dialogBuilder.setNeutralButton("OK", DialogInterface.OnClickListener { dialog, whichButton ->
+                //pass
+            })
+
+            val b = dialogBuilder.create()
+            b.show()
         }
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
