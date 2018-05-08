@@ -106,16 +106,6 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         if(savedInstanceState != null) {
             curFrag = supportFragmentManager.getFragment(savedInstanceState,"lastFragment")
             replaceFragment(curFrag)
-        } else {
-            val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setTitle("Custom dialog")
-            dialogBuilder.setMessage("Enter Name Below")
-            dialogBuilder.setNeutralButton("OK", DialogInterface.OnClickListener { dialog, whichButton ->
-                //pass
-            })
-
-            val b = dialogBuilder.create()
-            b.show()
         }
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
