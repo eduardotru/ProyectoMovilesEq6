@@ -58,20 +58,27 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val frag = supportFragmentManager.findFragmentById(R.id.fragment_container)
         when (item.itemId) {
             R.id.navigation_bug -> {
-                replaceFragment(ReportarErrorFragment.newInstance())
+                if(!(frag is  ReportarErrorFragment)) {
+                    replaceFragment(ReportarErrorFragment.newInstance())
+                }
                 return true
             }
             R.id.navigation_map -> {
-                var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
-                var edges = ArrayList<Edge>(mDb!!.puntoModel().allEdges)
-                val map_fragment = MapFragment.newInstance(puntos,edges)
-                replaceFragment(map_fragment)
+                if(!(frag is MapFragment)) {
+                    var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
+                    var edges = ArrayList<Edge>(mDb!!.puntoModel().allEdges)
+                    val map_fragment = MapFragment.newInstance(puntos,edges)
+                    replaceFragment(map_fragment)
+                }
                 return true
             }
             R.id.navigation_game -> {
-                replaceFragment(GameStartFragment.newInstance())
+                if(!(frag is GameStartFragment) && !(frag is GamePlayFragment) && !(frag is GameOverFragment)) {
+                    replaceFragment(GameStartFragment.newInstance())
+                }
                 return true
             }
         }
