@@ -104,7 +104,6 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
-            menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
 
             val edificio = hashmapEdificios[menuItem.title]
@@ -225,7 +224,14 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
 
     private fun populateDB() {
-        DatabaseInitializer.populate(mDb!!, this);
+
+        val prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
+        if (prefs.getBoolean("firstrun", true)) {
+            DatabaseInitializer.populate(mDb!!, this)
+            prefs.edit().putBoolean("firstrun", false).apply()
+        }
+
+
     }
 
 
@@ -255,7 +261,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         emailIntent.putExtra(Intent.EXTRA_TEXT, texto)
 
         try {
-            startActivity(Intent.createChooser(emailIntent, "Seleccione una aplicación "))
+            startActivity(Intent.createChooser(emailIntent, "Seleccione una aplicación7 "))
             finish()
         } catch (ex: android.content.ActivityNotFoundException) {
             Toast.makeText(this, "No se pudo enviar el correo", Toast.LENGTH_SHORT).show()
