@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -202,6 +205,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
 
+
     private void addOriginDestMarker(LatLng position){
         mMap.addMarker(new MarkerOptions().position(position)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.chosen_marker)));
@@ -210,9 +214,42 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .target(position)
                 .zoom(17.5f).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null){
+            double lat_origin = savedInstanceState.getDouble("lat_origin");
+
+            double long_origin = savedInstanceState.getDouble("long_origin");
+            System.out.println(lat_origin+" "+long_origin);
+            origin = new LatLng(lat_origin,long_origin);
+
+            double lat_dest = savedInstanceState.getDouble("lat_dest");
+            double long_dest = savedInstanceState.getDouble("long_dest");
+            dest = new LatLng(lat_dest,long_dest);
+
+
+            addOriginDestMarker(origin);
+            addOriginDestMarker(dest);
+            drawPath();
+
+        }
     }
 
 
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putDouble("lat_origin",origin.latitude);
+        outState.putDouble("long_origin",origin.longitude);
+        outState.putDouble("lat_dest", dest.latitude);
+        outState.putDouble("long_dest",dest.longitude);
+
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -251,16 +288,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         @Override
         protected ArrayList<LatLng> doInBackground(LatLng... params) {
             /*
-<<<<<<< HEAD:Campus_Accesible/app/src/main/java/itesm/mx/campus_accesible/Mapa/MapFragment.java
-            * Agregar la lista de edges
-            * */
-            return ShortestPath.INSTANCE.shortestPath(new ArrayList<Edge>(), allPuntos, params[0], params[1]);
-=======
+
              * Agregar la lista de edges
              * */
             ShortestPath sp = new ShortestPath(edges, allPuntos);
             return sp.shortestPath(params[0], params[1]);
->>>>>>> f692dcd27e4b51b19c903ec5f68ea085812a1faf:app/src/main/java/itesm/mx/campus_accesible/Mapa/MapFragment.java
         }
 
         @Override

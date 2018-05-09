@@ -30,12 +30,7 @@ import itesm.mx.campus_accesible.Creditos.CreditsFragment
 import itesm.mx.campus_accesible.DB.AppDatabase
 import itesm.mx.campus_accesible.Mapa.Edge
 import itesm.mx.campus_accesible.QRScanner.QRScannerListener
-<<<<<<< HEAD:Campus_Accesible/app/src/main/java/itesm/mx/campus_accesible/MainActivity.kt
 
-
-class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
-BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener {
-=======
 import itesm.mx.campus_accesible.Edificios.DetalleFragment
 import itesm.mx.campus_accesible.Edificios.Edificio
 import itesm.mx.campus_accesible.ReportarError.ReportarErrorFragment
@@ -43,7 +38,7 @@ import itesm.mx.campus_accesible.ReportarError.ReportarErrorFragment
 class MainActivity : AppCompatActivity(), MapFragment.OnFragmentInteractionListener, GameFragmentListener,
 BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDelegate, QRScannerListener,
         CreditsFragment.CreditsListener, ReportarErrorFragment.ReportarErrorListener {
->>>>>>> f692dcd27e4b51b19c903ec5f68ea085812a1faf:app/src/main/java/itesm/mx/campus_accesible/MainActivity.kt
+
 
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
@@ -243,9 +238,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
 
     private fun populateDB() {
-<<<<<<< HEAD:Campus_Accesible/app/src/main/java/itesm/mx/campus_accesible/MainActivity.kt
-        DatabaseInitializer.populate(mDb!!, this);
-=======
+
 
         val prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
         if (prefs.getBoolean("firstrun", true)) {
@@ -253,8 +246,6 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             prefs.edit().putBoolean("firstrun", false).apply()
         }
 
-
->>>>>>> f692dcd27e4b51b19c903ec5f68ea085812a1faf:app/src/main/java/itesm/mx/campus_accesible/MainActivity.kt
     }
 
 
@@ -262,8 +253,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         return ArrayList<Punto>(mDb!!.puntoModel().getDestination(longitude, latitude))
     }
 
-<<<<<<< HEAD:Campus_Accesible/app/src/main/java/itesm/mx/campus_accesible/MainActivity.kt
-=======
+
     override fun reportarDatos() {
         enviarCorreo("Error en Datos de la aplicación Android", "Error encontrado: ")
     }
@@ -293,7 +283,6 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         }
     }
 
->>>>>>> f692dcd27e4b51b19c903ec5f68ea085812a1faf:app/src/main/java/itesm/mx/campus_accesible/MainActivity.kt
     override fun onBackPressed() {
         val frag = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if(frag is MapFragment) {
