@@ -40,25 +40,26 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         CreditsFragment.CreditsListener, ReportarErrorFragment.ReportarErrorListener {
 
 
+    private var lastFragment: String? = null
+
     private var mDb: AppDatabase? = null
     private lateinit var mDrawerLayout: DrawerLayout
     private var hashmapEdificios = HashMap <String, Edificio>()
-    private lateinit var curFrag: Fragment
 
     override fun goToMainMenu() {
-        replaceFragment(GameStartFragment.newInstance())
+        replaceFragment(GameStartFragment.newInstance(), "StartFragment")
     }
 
     override fun restartGame() {
-        replaceFragment(GamePlayFragment.newInstance())
+        replaceFragment(GamePlayFragment.newInstance(), "PlayFragment")
     }
 
     override fun gameOver(score: Int, timer: Int) {
-        replaceFragment(GameOverFragment.newInstance(score, timer))
+        replaceFragment(GameOverFragment.newInstance(score, timer), "GameOver")
     }
 
     override fun startGame() {
-        replaceFragment(GamePlayFragment.newInstance())
+        replaceFragment(GamePlayFragment.newInstance(), "PlayFragment")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -66,7 +67,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         when (item.itemId) {
             R.id.navigation_bug -> {
                 if(!(frag is  ReportarErrorFragment)) {
-                    replaceFragment(ReportarErrorFragment.newInstance())
+                    replaceFragment(ReportarErrorFragment.newInstance(), "ErrorFragment")
                 }
                 return true
             }
@@ -75,13 +76,13 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
                     var puntos = ArrayList<Punto>(mDb!!.puntoModel().all)
                     var edges = ArrayList<Edge>(mDb!!.puntoModel().allEdges)
                     val map_fragment = MapFragment.newInstance(puntos,edges)
-                    replaceFragment(map_fragment)
+                    replaceFragment(map_fragment, "MapFragment")
                 }
                 return true
             }
             R.id.navigation_game -> {
                 if(!(frag is GameStartFragment) && !(frag is GamePlayFragment) && !(frag is GameOverFragment)) {
-                    replaceFragment(GameStartFragment.newInstance())
+                    replaceFragment(GameStartFragment.newInstance(), "StartFragment")
                 }
                 return true
             }
@@ -96,19 +97,14 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
     }
 
-    fun replaceFragment(frag: Fragment) {
-        curFrag = frag
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, frag).commit()
+    fun replaceFragment(frag: Fragment, tag: String) {
+        lastFragment = tag
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, frag, tag).commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        if(savedInstanceState != null) {
-            curFrag = supportFragmentManager.getFragment(savedInstanceState,"lastFragment")
-            replaceFragment(curFrag)
-        }
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -120,12 +116,12 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             val edificio = hashmapEdificios[menuItem.title]
 
             if(menuItem.title == "Créditos") {
-                replaceFragment(CreditsFragment.newInstance())
+                replaceFragment(CreditsFragment.newInstance(), "CreditsFragment")
             }
             else if (edificio != null)
             {
                 val frag = DetalleFragment.newInstance(edificio)
-                replaceFragment(frag)
+                replaceFragment(frag, "DetailFragment")
             }
 
             true
@@ -166,7 +162,11 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
             hashmapEdificios[edificio.nombre] = edificio
         }
         menu.add("Créditos")
-        navigation.selectedItemId = R.id.navigation_map
+        if(savedInstanceState != null && savedInstanceState.getBoolean("boolLastFrag")) {
+            lastFragment = savedInstanceState.getString("LastFragment")
+        } else {
+            navigation.selectedItemId = R.id.navigation_map
+        }
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu)
@@ -176,7 +176,12 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        supportFragmentManager.putFragment(outState,"lastFragment", curFrag)
+        if(lastFragment != null) {
+            outState?.putBoolean("boolLastFrag", true)
+            outState?.putString("LastFragment", lastFragment)
+        } else {
+            outState?.putBoolean("boolLastFrag", false)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -202,14 +207,14 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
 
     fun openQRScanner() {
         val qrfrag = QRScannerFragment.newInstance()
-        replaceFragment(qrfrag)
+        replaceFragment(qrfrag, "QRFragment")
     }
 
     override fun qrScannerDetected(barcode: Barcode) {
         val name = barcode.rawValue
         val edificio = hashmapEdificios[name]
         if(barcode.valueFormat == Barcode.TEXT && edificio != null) {
-            replaceFragment(DetalleFragment.newInstance(edificio))
+            replaceFragment(DetalleFragment.newInstance(edificio), "DetailFragment")
             Toast.makeText(this, barcode.displayValue, Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, R.string.barcode_failed, Toast.LENGTH_SHORT).show()
