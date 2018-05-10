@@ -57,8 +57,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private AppDatabase.DatabaseDelegate databaseDelegate;
     private LatLng origin;
     private LatLng dest;
-    private boolean hasPickedOne;
-    private boolean hasPickedTwo;
+    private boolean hasPickedOne = false;
+    private boolean hasPickedTwo = false;
     private FloatingActionButton fab;
     private Bundle savedState = null;
 
@@ -178,18 +178,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void addMarkers(){
-        if(savedState != null){
+        if(savedState != null) {
+            hasPickedOne = savedState.getBoolean("hasPickedOne");
+            hasPickedTwo = savedState.getBoolean("hasPickedTwo");
+        }
+        if(hasPickedOne && hasPickedTwo){
             double lat_origin = savedState.getDouble("lat_origin");
-
             double long_origin = savedState.getDouble("long_origin");
-            System.out.println(lat_origin+" "+long_origin);
             origin = new LatLng(lat_origin,long_origin);
 
             double lat_dest = savedState.getDouble("lat_dest");
             double long_dest = savedState.getDouble("long_dest");
             dest = new LatLng(lat_dest,long_dest);
-
-            savedState = null;
 
             addOriginDestMarker(origin);
             addOriginDestMarker(dest);
@@ -208,9 +208,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         .target(point)
                         .zoom(17.3f).build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-
-
             }
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
@@ -221,7 +218,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     return false;
                 }
             });
+            if(hasPickedOne) {
+                double lat_origin = savedState.getDouble("lat_origin");
+                double long_origin = savedState.getDouble("long_origin");
+                origin = new LatLng(lat_origin,long_origin);
+
+                addOriginDestMarker(origin);
+            }
         }
+        savedState = null;
     }
 
 
@@ -241,10 +246,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putDouble("lat_origin",origin.latitude);
-        outState.putDouble("long_origin",origin.longitude);
-        outState.putDouble("lat_dest", dest.latitude);
-        outState.putDouble("long_dest",dest.longitude);
+
+        outState.putBoolean("hasPickedOne", hasPickedOne);
+        outState.putBoolean("hasPickedTwo", hasPickedTwo);
+
+        if(hasPickedOne) {
+            outState.putDouble("lat_origin",origin.latitude);
+            outState.putDouble("long_origin",origin.longitude);
+        }
+        if (hasPickedTwo) {
+            outState.putDouble("lat_dest", dest.latitude);
+            outState.putDouble("long_dest",dest.longitude);
+        }
     }
 
     /**
@@ -258,7 +271,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(double[] arr);
     }
 
