@@ -269,14 +269,12 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     }
 
     private fun enviarCorreo(asunto: String , texto: String) {
-        val to = arrayOf("jimena.lomeli1@gmail.com")
-        val cc = arrayOf("jimena.lomeli1@gmail.com")
+        val to = arrayOf("jjayala@itesm.mx")
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.setData(Uri.parse("mailto:"))
         emailIntent.setType("text/plain")
 
         emailIntent.putExtra(Intent.EXTRA_EMAIL, to)
-        emailIntent.putExtra(Intent.EXTRA_CC, cc)
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, asunto)
         emailIntent.putExtra(Intent.EXTRA_TEXT, texto)
 
