@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/fa8b88de38355732ac99a01994c7004d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="23dcb4803d3103bde3f3f5db978a726338fe49ae">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/5d77564b01d731d9f040b0902c043b97/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="71d380aeac037e63bab7bda2ba211777e16a2f42">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/119340d687a9c07829461679963abf80/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.31/153dcd9ed9db246a7e36f4d7609e2a9f4718c674/kotlin-stdlib-1.2.31.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="153dcd9ed9db246a7e36f4d7609e2a9f4718c674">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/play-services-tasks-12.0.1.aar/c5d5f89c722433f41705b9ce11c162e9/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a38a8974c8d066800237d22a86df2e88cb9e065c">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.1.1.aar/48feb1b96a90c67c274ea698e92bbdd3/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2feadd535770271ca57b7b431f42151aa4af324a">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/ab7bef3ab9f3af5a622fbee5bea8f4aa/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8d24e1c59cbee887714f11121366282a2fe00251">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/8f6becb3a126446d897885dae1fdce70/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e2bbe48deed35056023eed2cdc0cc92e5c7d3617">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.1.1.aar/765c41761937d8b1df0f0c809d1852e0/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4d2b8ad415048e88b41ba4afcaafe36150e69b8c">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.1.1.aar/a085ba6311ede8f59cd00b0f8dd5e61f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ec657bb192b20229696216bf233779b16bf75a54">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/org/jetbrains/annotations/13.0/annotations-13.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="919f0dfe192fb4e063e7dacadee7f8bb9a2672a9">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.0.aar/a390d57476f1929e0bb284ce3ad47d45/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8a9fd7c97f1d13f97f3b52f9d2e54cd857d5acf9">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/62ae2ae9c09b7f68f30764d7a6cfcd76/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="88c68e5ef7c5ace393d014c9ec5fe736b1ca55cf">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/play-services-base-12.0.1.aar/93f2ec99cc660ca5b368eb161a3f5fb4/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ed8395f343c428cd55c60499f04323083f4ef0db">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/8160d8825fb9b6d7c2056aa3c324253f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d968b9bd0011800e0d333d1571b8d34bcb8a0b6e">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/27.1.1/39ded76b5e1ce1c5b2688e1d25cdc20ecee32007/support-annotations-27.1.1.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="39ded76b5e1ce1c5b2688e1d25cdc20ecee32007">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/72a2d67b3737ededbe19350cf02bb601/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1fd3ceac7f415975323d52c6c6057db409a907f6">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/38.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.1.aar/465d2f277d90e76118196958eefbc7fc/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c9a721adcd7dbae7a197b0ef81102336539f63ff">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/76d118fb41fcfd885f8c0f1d212362af/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="22569eca3029ab00583c332a2be220cdbf091b35">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/play-services-vision-12.0.1.aar/d0664660d9fd508f76ec35822a4bfb5b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cc95ad466da44800955b79689023485ea39924a3">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/1957669ab725f1bff8f1c7cb17e289d5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ae6d33f37143b08cd8c477c9e348d61ef7ed7eba">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/common/1.0.0/1cbd3ddc566125293b13af5c0a65bc015476e83c/common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1cbd3ddc566125293b13af5c0a65bc015476e83c">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.1.0/8007981f7d7540d89cd18471b8e5dcd2b4f99167/common-1.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8007981f7d7540d89cd18471b8e5dcd2b4f99167">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/play-services-maps-12.0.1.aar/0dbc0e157db33be832314dfdb58f9de2/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fc421b0511f4e492d097c84702b2a00f101fe08a">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.1.0/edf3f7bfb84a7521d0599efa3b0113a0ee90f85/common-1.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0edf3f7bfb84a7521d0599efa3b0113a0ee90f85">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/1e41f49babfe922effdfb7a2c8f25fd1/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3304d33470ff64cf83bce9189ff3648a42eb2aa7">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/db-framework-1.0.0.aar/2ff91082e3e257a142feae8f1ece1252/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e44c59a2b380c1c304413901f8dd34245b64ab40">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.1.1.aar/6ea72851f2f55698428c2b4c26c767d9/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="874f1143c11f5d38533efe512bf913e3e847e7df">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jre7/1.2.31/98678431965f7487d6dc9b399e59b6c4b3921073/kotlin-stdlib-jre7-1.2.31.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="98678431965f7487d6dc9b399e59b6c4b3921073">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.1.1.aar/ef241198666fe553e9b15533f0a2363d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4798b2c2dd1fa53176696fa416890d27acbf5617">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/transition-27.1.1.aar/7afcbd4ba83ea925122cae12f087b41e/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7038c6d960d3fe26fd41bc509f256c9692d886ce">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/db-1.0.0.aar/1171f090bd7e72984ae9426373a321ca/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="73b7c0cc2de04ff7eb3979d7f48f2a667fce88ca">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/bandala/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-12.0.1.aar/0a6e2b02cb29d72136ebad69ef436bf6/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1fddd828aa2365a453562d62b07da4a2d94a24ad">
+        <dex dex="/Users/bandala/Documents/ITESM/Sexto_Semestre/Dispositivos Moviles/ProyectoFinal/ProyectoMovilesEq6/app/build/intermediates/transforms/preDex/release/10.jar" />
+    </item>
+
+</items>
