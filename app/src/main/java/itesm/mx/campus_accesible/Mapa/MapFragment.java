@@ -60,6 +60,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private boolean hasPickedOne;
     private boolean hasPickedTwo;
     private FloatingActionButton fab;
+    private Bundle savedState = null;
 
     public MapFragment() {
         // Required empty public constructor
@@ -88,6 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        savedState = savedInstanceState;
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_map, container,
                 false);
@@ -176,31 +178,50 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void addMarkers(){
-        for(Punto p : allPuntos){
-            double longitude = p.getLongitude_coordinate();
-            double latitude = p.getLatitude_coordinate();
+        if(savedState != null){
+            double lat_origin = savedState.getDouble("lat_origin");
 
-            LatLng point = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(point)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(point)
-                    .zoom(17.3f).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            double long_origin = savedState.getDouble("long_origin");
+            System.out.println(lat_origin+" "+long_origin);
+            origin = new LatLng(lat_origin,long_origin);
+
+            double lat_dest = savedState.getDouble("lat_dest");
+            double long_dest = savedState.getDouble("long_dest");
+            dest = new LatLng(lat_dest,long_dest);
+
+            savedState = null;
+
+            addOriginDestMarker(origin);
+            addOriginDestMarker(dest);
+            drawPath();
+
+        } else {
+            for(Punto p : allPuntos){
+                double longitude = p.getLongitude_coordinate();
+                double latitude = p.getLatitude_coordinate();
+
+                LatLng point = new LatLng(latitude, longitude);
+                mMap.addMarker(new MarkerOptions().position(point)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(point)
+                        .zoom(17.3f).build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 
 
-        }
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.chosen_marker));
-                LatLng position = marker.getPosition();
-                setPickedElements(position);
-                return false;
             }
-        });
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.chosen_marker));
+                    LatLng position = marker.getPosition();
+                    setPickedElements(position);
+                    return false;
+                }
+            });
+        }
     }
 
 
@@ -218,37 +239,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState != null){
-            double lat_origin = savedInstanceState.getDouble("lat_origin");
-
-            double long_origin = savedInstanceState.getDouble("long_origin");
-            System.out.println(lat_origin+" "+long_origin);
-            origin = new LatLng(lat_origin,long_origin);
-
-            double lat_dest = savedInstanceState.getDouble("lat_dest");
-            double long_dest = savedInstanceState.getDouble("long_dest");
-            dest = new LatLng(lat_dest,long_dest);
-
-
-            addOriginDestMarker(origin);
-            addOriginDestMarker(dest);
-            drawPath();
-
-        }
-    }
-
-
-
-    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putDouble("lat_origin",origin.latitude);
         outState.putDouble("long_origin",origin.longitude);
         outState.putDouble("lat_dest", dest.latitude);
         outState.putDouble("long_dest",dest.longitude);
-
     }
 
     /**
