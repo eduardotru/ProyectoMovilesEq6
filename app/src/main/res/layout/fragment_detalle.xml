@@ -10,18 +10,25 @@
 
         <TextView
             android:id="@+id/text1"
-            android:padding="20dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="0dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-            android:text="Nombre del edificio"
-            android:gravity="center" />
+            android:text="Nombre del edificio" />
 
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/image_edificio"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:maxHeight="350dp"
             android:layout_gravity="center_horizontal" />
 
 
@@ -31,17 +38,21 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_elevador"
-                android:textSize="18dp"
-                android:gravity="right"
-                android:textStyle="bold"/>
+                android:textSize="20dp"
+                android:gravity="left"
+                android:padding="10dp"
+                android:textColor="#666"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:textSize="20dp"
+                android:gravity="right"
+                android:textColor="#000"
+                android:padding="10dp"
                 android:id="@+id/text_valorElevador" />
         </LinearLayout>
 
@@ -51,17 +62,20 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_banos"
-                android:textSize="18dp"
-                android:gravity="right"
-                android:textStyle="bold"/>
+                android:textSize="20dp"
+                android:textColor="#666"
+                android:padding="10dp"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:textSize="20dp"
+                android:gravity="right"
+                android:textColor="#000"
+                android:padding="10dp"
                 android:id="@+id/text_valorBanos" />
         </LinearLayout>
 
