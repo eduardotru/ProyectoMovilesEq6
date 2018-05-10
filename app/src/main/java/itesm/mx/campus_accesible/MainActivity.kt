@@ -269,7 +269,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
     }
 
     private fun enviarCorreo(asunto: String , texto: String) {
-        val to = arrayOf("jjayala@itesm.mx")
+        val to = arrayOf(resources.getString(R.string.email_recipient))
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.setData(Uri.parse("mailto:"))
         emailIntent.setType("text/plain")
