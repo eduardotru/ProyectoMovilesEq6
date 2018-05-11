@@ -3,7 +3,6 @@ package itesm.mx.campus_accesible.Edificios;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -67,8 +66,7 @@ public class DetalleFragment extends Fragment {
             tvElevador.setText(" Sí");
         }
         else {
-            tvElevador.setText(" NO");
-            tvElevador.setTextColor(Color.RED);
+            tvElevador.setText(" No");
         }
 
         ivImagen.setImageResource(edificio.getImagen());
