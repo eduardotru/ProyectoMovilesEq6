@@ -18,8 +18,6 @@
     <string name="credits">Desarrollada por:\nEduardo Enrique Trujillo Ramos\nAna Jimena Lomeli Cantú\nLuis Erick Zul Rabasa\nKarla Alexandra Robledo Bandala\n\nPara el departamento de Campus Accesible del Tecnológico de Monterrey Campus Monterrey.
     </string>
 
-    <string name="hello_blank_fragment">Hola</string>
-
-    <string name="email_recipient">jjayala@itesm.mx</string>
+    <string name="email_recipient">campusaccesible.mty@itesm.mx</string>
 
 </resources>
