@@ -62,7 +62,7 @@ public class DatabaseInitializer {
         e = new Edificio("Aulas 6", false, "A6-118", R.drawable.aulas6);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 4", false, "A1-101", R.drawable.aulas_4);
+        e = new Edificio("Aulas 4", false, "A4-101", R.drawable.aulas_4);
         edificioList.add(e);
 
         e = new Edificio("Centrales", false, "CC-104", R.drawable.centrales);
@@ -84,6 +84,9 @@ public class DatabaseInitializer {
         edificioList.add(e);
 
         e = new Edificio("Biblioteca", true, "Todos los baños son accesibles", R.drawable.biblioteca);
+        edificioList.add(e);
+
+        e = new Edificio("Carreta", true, "Todos los baños son accesibles", R.drawable.carreta);
         edificioList.add(e);
 
         return edificioList;

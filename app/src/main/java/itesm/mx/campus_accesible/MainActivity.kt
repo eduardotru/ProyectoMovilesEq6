@@ -279,7 +279,7 @@ BottomNavigationView.OnNavigationItemSelectedListener, AppDatabase.DatabaseDeleg
         emailIntent.putExtra(Intent.EXTRA_TEXT, texto)
 
         try {
-            startActivity(Intent.createChooser(emailIntent, "Seleccione una aplicación7 "))
+            startActivity(Intent.createChooser(emailIntent, "Seleccione una aplicación "))
             finish()
         } catch (ex: android.content.ActivityNotFoundException) {
             Toast.makeText(this, "No se pudo enviar el correo", Toast.LENGTH_SHORT).show()
