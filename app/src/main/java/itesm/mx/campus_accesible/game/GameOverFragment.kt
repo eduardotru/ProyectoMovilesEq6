@@ -92,14 +92,12 @@ class GameOverFragment : Fragment(), View.OnClickListener {
 
         (view.findViewById<TextView>(R.id.results)).text = resultsText
         (view.findViewById<Button>(R.id.btn_try_again)).setOnClickListener(this)
-        (view.findViewById<Button>(R.id.btn_exit)).setOnClickListener(this)
 
         return view
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-            R.id.btn_exit -> mListener!!.goToMainMenu()
             R.id.btn_try_again -> mListener!!.restartGame()
         }
     }
