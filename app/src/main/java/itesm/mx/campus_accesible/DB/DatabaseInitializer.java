@@ -1,3 +1,21 @@
+/*
+    Campus Accesible. Map with accessible routes inside ITESM Monterrey.
+	Copyright (C) 2018 - ITESM
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package itesm.mx.campus_accesible.DB;
 
 import android.app.Activity;
@@ -59,10 +77,10 @@ public class DatabaseInitializer {
         e = new Edificio("Aulas 3", false, "A3-105", R.drawable.aulas3);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 6", false, "A6-118", R.drawable.aulas6);
+        e = new Edificio("Aulas 6", true, "A6-118", R.drawable.aulas6);
         edificioList.add(e);
 
-        e = new Edificio("Aulas 4", false, "A4-101", R.drawable.aulas_4);
+        e = new Edificio("Aulas 4", true, "A4-101", R.drawable.aulas_4);
         edificioList.add(e);
 
         e = new Edificio("Centrales", false, "CC-104", R.drawable.centrales);
